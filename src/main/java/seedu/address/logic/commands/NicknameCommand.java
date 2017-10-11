@@ -59,7 +59,6 @@ public class NicknameCommand extends UndoableCommand {
 
         ReadOnlyPerson personToUpdateNickname = lastShownList.get(targetIndex.getZeroBased());
         Person personUpdated = updatePersonNickname(personToUpdateNickname, nickname);
-        //System.out.println(personUpdated.getNickname() + " " + personUpdated.getName());
 
         try {
             model.updatePerson(personToUpdateNickname, personUpdated);

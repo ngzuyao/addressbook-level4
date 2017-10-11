@@ -1,11 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,12 +10,18 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(seedu.address.model.ModelManager.class);
 
     private final AddressBook addressBook;
     private final FilteredList<ReadOnlyPerson> filteredPersons;
@@ -106,12 +106,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
+        if (!(obj instanceof seedu.address.model.ModelManager)) {
             return false;
         }
 
         // state check
-        ModelManager other = (ModelManager) obj;
+        seedu.address.model.ModelManager other = (seedu.address.model.ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons);
     }

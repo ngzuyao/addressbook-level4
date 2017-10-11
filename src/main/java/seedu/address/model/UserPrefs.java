@@ -1,8 +1,8 @@
 package seedu.address.model;
 
-import java.util.Objects;
-
 import seedu.address.commons.core.GuiSettings;
+
+import java.util.Objects;
 
 /**
  * Represents User's preferences.
@@ -50,11 +50,11 @@ public class UserPrefs {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)) { //this handles null as well.
+        if (!(other instanceof seedu.address.model.UserPrefs)) { //this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs) other;
+        seedu.address.model.UserPrefs o = (seedu.address.model.UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)

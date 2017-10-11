@@ -1,8 +1,8 @@
 package seedu.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Tag in the address book.
@@ -39,8 +39,8 @@ public class Tag {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && this.tagName.equals(((Tag) other).tagName)); // state check
+                || (other instanceof seedu.address.model.tag.Tag // instanceof handles nulls
+                && this.tagName.equals(((seedu.address.model.tag.Tag) other).tagName)); // state check
     }
 
     @Override

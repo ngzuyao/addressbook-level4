@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Person's address in the address book.
@@ -49,8 +49,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && this.value.equals(((Address) other).value)); // state check
+                || (other instanceof seedu.address.model.person.Address // instanceof handles nulls
+                && this.value.equals(((seedu.address.model.person.Address) other).value)); // state check
     }
 
     @Override

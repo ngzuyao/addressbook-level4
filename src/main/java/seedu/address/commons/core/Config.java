@@ -44,11 +44,11 @@ public class Config {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)) { //this handles null as well.
+        if (!(other instanceof seedu.address.commons.core.Config)) { //this handles null as well.
             return false;
         }
 
-        Config o = (Config) other;
+        seedu.address.commons.core.Config o = (seedu.address.commons.core.Config) other;
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)

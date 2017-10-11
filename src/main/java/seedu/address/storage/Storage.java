@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-import java.util.Optional;
-
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * API of the Storage component
@@ -28,14 +28,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
 
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
-
-    /**
-     * saves current version of address book to a location specified by the user
-     * @param addressBook
-     * @param filePath
-     * @throws IOException
-     */
-    void saveAddressBookAs(ReadOnlyAddressBook addressBook, String filePath) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.

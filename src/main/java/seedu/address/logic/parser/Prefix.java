@@ -26,14 +26,14 @@ public class Prefix {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Prefix)) {
+        if (!(obj instanceof seedu.address.logic.parser.Prefix)) {
             return false;
         }
         if (obj == this) {
             return true;
         }
 
-        Prefix otherPrefix = (Prefix) obj;
+        seedu.address.logic.parser.Prefix otherPrefix = (seedu.address.logic.parser.Prefix) obj;
         return otherPrefix.getPrefix().equals(getPrefix());
     }
 }

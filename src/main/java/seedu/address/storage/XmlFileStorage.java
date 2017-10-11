@@ -1,12 +1,11 @@
 package seedu.address.storage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import javax.xml.bind.JAXBException;
-
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
+
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Stores addressbook data in an XML file

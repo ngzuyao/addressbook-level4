@@ -1,6 +1,6 @@
 package seedu.address.commons.core;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -45,11 +45,11 @@ public class GuiSettings implements Serializable {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof GuiSettings)) { //this handles null as well.
+        if (!(other instanceof seedu.address.commons.core.GuiSettings)) { //this handles null as well.
             return false;
         }
 
-        GuiSettings o = (GuiSettings) other;
+        seedu.address.commons.core.GuiSettings o = (seedu.address.commons.core.GuiSettings) other;
 
         return Objects.equals(windowWidth, o.windowWidth)
                 && Objects.equals(windowHeight, o.windowHeight)

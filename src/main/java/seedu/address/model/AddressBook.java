@@ -1,14 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -17,6 +8,10 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+
+import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Wraps all data at the address-book level
@@ -183,9 +178,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
+                || (other instanceof seedu.address.model.AddressBook // instanceof handles nulls
+                && this.persons.equals(((seedu.address.model.AddressBook) other).persons)
+                && this.tags.equalsOrderInsensitive(((seedu.address.model.AddressBook) other).tags));
     }
 
     @Override

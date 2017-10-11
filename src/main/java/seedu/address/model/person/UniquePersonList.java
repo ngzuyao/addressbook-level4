@@ -1,17 +1,16 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.fxmisc.easybind.EasyBind;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.fxmisc.easybind.EasyBind;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import static java.util.Objects.requireNonNull;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -84,12 +83,12 @@ public class UniquePersonList implements Iterable<Person> {
         return personFoundAndDeleted;
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(seedu.address.model.person.UniquePersonList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
     public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
-        final UniquePersonList replacement = new UniquePersonList();
+        final seedu.address.model.person.UniquePersonList replacement = new seedu.address.model.person.UniquePersonList();
         for (final ReadOnlyPerson person : persons) {
             replacement.add(new Person(person));
         }
@@ -111,8 +110,8 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && this.internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof seedu.address.model.person.UniquePersonList // instanceof handles nulls
+                        && this.internalList.equals(((seedu.address.model.person.UniquePersonList) other).internalList));
     }
 
     @Override

@@ -1,15 +1,15 @@
 package seedu.address.commons.core;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a version with major, minor and patch number
  */
-public class Version implements Comparable<Version> {
+public class Version implements Comparable<seedu.address.commons.core.Version> {
 
     public static final String VERSION_REGEX = "V(\\d+)\\.(\\d+)\\.(\\d+)(ea)?";
 
@@ -51,14 +51,14 @@ public class Version implements Comparable<Version> {
      * @return a Version object
      */
     @JsonCreator
-    public static Version fromString(String versionString) throws IllegalArgumentException {
+    public static seedu.address.commons.core.Version fromString(String versionString) throws IllegalArgumentException {
         Matcher versionMatcher = VERSION_PATTERN.matcher(versionString);
 
         if (!versionMatcher.find()) {
             throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
         }
 
-        return new Version(Integer.parseInt(versionMatcher.group(1)),
+        return new seedu.address.commons.core.Version(Integer.parseInt(versionMatcher.group(1)),
                 Integer.parseInt(versionMatcher.group(2)),
                 Integer.parseInt(versionMatcher.group(3)),
                 versionMatcher.group(4) == null ? false : true);
@@ -70,7 +70,7 @@ public class Version implements Comparable<Version> {
     }
 
     @Override
-    public int compareTo(Version other) {
+    public int compareTo(seedu.address.commons.core.Version other) {
         if (this.major != other.major) {
             return this.major - other.major;
         }
@@ -94,10 +94,10 @@ public class Version implements Comparable<Version> {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof Version)) {
+        if (!(obj instanceof seedu.address.commons.core.Version)) {
             return false;
         }
-        final Version other = (Version) obj;
+        final seedu.address.commons.core.Version other = (seedu.address.commons.core.Version) obj;
 
         return this.compareTo(other) == 0;
     }

@@ -99,12 +99,12 @@ public class ListElementPointer {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ListElementPointer)) {
+        if (!(other instanceof seedu.address.logic.ListElementPointer)) {
             return false;
         }
 
         // state check
-        ListElementPointer iterator = (ListElementPointer) other;
+        seedu.address.logic.ListElementPointer iterator = (seedu.address.logic.ListElementPointer) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
 }

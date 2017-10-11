@@ -1,10 +1,10 @@
 package seedu.address.model.person;
 
-import java.util.Set;
-
 import javafx.beans.property.ObjectProperty;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+
+import java.util.Set;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -20,13 +20,15 @@ public interface ReadOnlyPerson {
     Email getEmail();
     ObjectProperty<Address> addressProperty();
     Address getAddress();
+    ObjectProperty<Nickname> nicknameProperty();
+    Nickname getNickname();
     ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyPerson other) {
+    default boolean isSameStateAs(seedu.address.model.person.ReadOnlyPerson other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
@@ -46,8 +48,12 @@ public interface ReadOnlyPerson {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+                .append(getAddress());
+        if (getNickname() != null) {
+            builder.append(" Nickname: ");
+            builder.append(getNickname());
+        }
+                builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

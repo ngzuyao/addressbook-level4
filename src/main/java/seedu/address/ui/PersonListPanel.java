@@ -1,28 +1,26 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
-import org.fxmisc.easybind.EasyBind;
-
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import org.fxmisc.easybind.EasyBind;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
+
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(seedu.address.ui.PersonListPanel.class);
 
     @FXML
     private ListView<PersonCard> personListView;

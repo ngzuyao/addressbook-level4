@@ -1,16 +1,16 @@
 package seedu.address.model.tag;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.util.CollectionUtil;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.DuplicateDataException;
-import seedu.address.commons.util.CollectionUtil;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A list of tags that enforces no nulls and uniqueness between its elements.
@@ -60,7 +60,7 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Ensures every tag in the argument list exists in this object.
      */
-    public void mergeFrom(UniqueTagList from) {
+    public void mergeFrom(seedu.address.model.tag.UniqueTagList from) {
         final Set<Tag> alreadyInside = this.toSet();
         from.internalList.stream()
                 .filter(tag -> !alreadyInside.contains(tag))
@@ -110,15 +110,15 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean equals(Object other) {
         assert CollectionUtil.elementsAreUnique(internalList);
         return other == this // short circuit if same object
-                || (other instanceof UniqueTagList // instanceof handles nulls
-                        && this.internalList.equals(((UniqueTagList) other).internalList));
+                || (other instanceof seedu.address.model.tag.UniqueTagList // instanceof handles nulls
+                        && this.internalList.equals(((seedu.address.model.tag.UniqueTagList) other).internalList));
     }
 
     /**
      * Returns true if the element in this list is equal to the elements in {@code other}.
      * The elements do not have to be in the same order.
      */
-    public boolean equalsOrderInsensitive(UniqueTagList other) {
+    public boolean equalsOrderInsensitive(seedu.address.model.tag.UniqueTagList other) {
         assert CollectionUtil.elementsAreUnique(internalList);
         assert CollectionUtil.elementsAreUnique(other.internalList);
         return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));

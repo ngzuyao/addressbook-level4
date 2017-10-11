@@ -1,12 +1,6 @@
 package seedu.address;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -20,20 +14,16 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.*;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
@@ -42,7 +32,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(0, 6, 0, true);
 
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(seedu.address.MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
@@ -183,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting AddressBook " + VERSION);
         ui.start(primaryStage);
     }
 

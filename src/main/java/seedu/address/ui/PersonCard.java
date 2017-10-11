@@ -72,12 +72,6 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
-   // private void initNickname(ReadOnlyPerson person) {
-       // if(person.getNickname().value != new Nickname().value) {
-        //    nickname.getChildren().add(new Label(/*person.getNickname().value*/"abc"));
-       // }
-    //}
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object

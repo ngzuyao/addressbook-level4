@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Nickname;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -38,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label nickname;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
@@ -57,15 +60,23 @@ public class PersonCard extends UiPart<Region> {
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
+        nickname.textProperty().bind(Bindings.convert(person.nicknameProperty()));
         person.tagProperty().addListener((observable, oldValue, newValue) -> {
             tags.getChildren().clear();
             person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        });
+        }
+        );
     }
 
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
+   // private void initNickname(ReadOnlyPerson person) {
+       // if(person.getNickname().value != new Nickname().value) {
+        //    nickname.getChildren().add(new Label(/*person.getNickname().value*/"abc"));
+       // }
+    //}
 
     @Override
     public boolean equals(Object other) {

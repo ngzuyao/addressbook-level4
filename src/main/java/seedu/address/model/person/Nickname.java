@@ -11,7 +11,8 @@ import static java.util.Objects.requireNonNull;
 public class Nickname {
 
     public static final String MESSAGE_NICKNAME_CONSTRAINTS =
-            "Person nickname should be in dd/mm/yyyy format, and it should not be blank";
+            "Person nickname should be in alphanumeric format, and it should not be blank";
+    public static final String NICKNAME_VALIDATION_REGEX = "\\p{Alnum}+";
 
     /*
      * The first character of the nickname must not be a whitespace,
@@ -20,13 +21,30 @@ public class Nickname {
     public final String value;
 
     /**
+     * Default nickname string.
+     */
+    public Nickname() {
+        String defaultNickname = "noNickname";
+        this.value = defaultNickname;
+    }
+    /**
      * Validates given nickname.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given nickname string is invalid.
      */
-    public Nickname(String nicknameNum) throws IllegalValueException {
-        requireNonNull(nicknameNum);
-        this.value = nicknameNum;
+    public Nickname(String nicknameStr) throws IllegalValueException {
+        requireNonNull(nicknameStr);
+        if (!isValidNickname(nicknameStr)) {
+            throw new IllegalValueException(MESSAGE_NICKNAME_CONSTRAINTS);
+        }
+        this.value = nicknameStr;
+    }
+
+    /**
+     * Returns true if a given string is a valid nickname.
+     */
+    public static boolean isValidNickname(String test) {
+        return test.matches(NICKNAME_VALIDATION_REGEX);
     }
 
     @Override

@@ -26,14 +26,14 @@ public class NicknameCommandParser implements Parser<NicknameCommand> {
             StringTokenizer st = new StringTokenizer(args);
             Index index = ParserUtil.parseIndex(st.nextToken());
             String nicknameInput = st.nextToken();
-            String prefix = nicknameInput.substring(0, 2);
+            String prefix = nicknameInput.substring(0, 3);
 
             if (!prefix.equals(PREFIX_NICKNAME.getPrefix())) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, NicknameCommand.MESSAGE_USAGE));
             }
 
-            Nickname nickname = new Nickname(nicknameInput.substring(2));
+            Nickname nickname = new Nickname(nicknameInput.substring(3));
             return new NicknameCommand(index, nickname);
         } catch (IllegalValueException ive) {
             throw new ParseException(

@@ -35,12 +35,11 @@ public class Nickname {
     public Nickname(String nicknameStr) throws IllegalValueException {
         if (nicknameStr == null) {
             this.value = new Nickname().value;
-        }
-            else {
-                requireNonNull(nicknameStr);
-                if (!isValidNickname(nicknameStr)) {
-                    throw new IllegalValueException(MESSAGE_NICKNAME_CONSTRAINTS);
-                }
+        } else {
+            requireNonNull(nicknameStr);
+            if (!isValidNickname(nicknameStr)) {
+                throw new IllegalValueException(MESSAGE_NICKNAME_CONSTRAINTS);
+            }
         this.value = nicknameStr;
         }
 

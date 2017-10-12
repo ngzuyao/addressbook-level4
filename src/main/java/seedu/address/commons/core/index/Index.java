@@ -34,21 +34,21 @@ public class Index {
     /**
      * Creates a new {@code Index} using a zero-based index.
      */
-    public static seedu.address.commons.core.index.Index fromZeroBased(int zeroBasedIndex) {
-        return new seedu.address.commons.core.index.Index(zeroBasedIndex);
+    public static Index fromZeroBased(int zeroBasedIndex) {
+        return new Index(zeroBasedIndex);
     }
 
     /**
      * Creates a new {@code Index} using a one-based index.
      */
-    public static seedu.address.commons.core.index.Index fromOneBased(int oneBasedIndex) {
-        return new seedu.address.commons.core.index.Index(oneBasedIndex - 1);
+    public static Index fromOneBased(int oneBasedIndex) {
+        return new Index(oneBasedIndex - 1);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.commons.core.index.Index // instanceof handles nulls
-                && this.zeroBasedIndex == ((seedu.address.commons.core.index.Index) other).zeroBasedIndex); // state check
+                || (other instanceof Index // instanceof handles nulls
+                && this.zeroBasedIndex == ((Index) other).zeroBasedIndex); // state check
     }
 }

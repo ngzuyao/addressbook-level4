@@ -83,12 +83,12 @@ public class UniquePersonList implements Iterable<Person> {
         return personFoundAndDeleted;
     }
 
-    public void setPersons(seedu.address.model.person.UniquePersonList replacement) {
+    public void setPersons(UniquePersonList replacement) {
         this.internalList.setAll(replacement.internalList);
     }
 
     public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
-        final seedu.address.model.person.UniquePersonList replacement = new seedu.address.model.person.UniquePersonList();
+        final UniquePersonList replacement = new UniquePersonList();
         for (final ReadOnlyPerson person : persons) {
             replacement.add(new Person(person));
         }
@@ -110,8 +110,8 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.address.model.person.UniquePersonList // instanceof handles nulls
-                        && this.internalList.equals(((seedu.address.model.person.UniquePersonList) other).internalList));
+                || (other instanceof UniquePersonList // instanceof handles nulls
+                        && this.internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

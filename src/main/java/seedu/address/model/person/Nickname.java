@@ -1,8 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Person's nickname in the address book.
@@ -33,15 +33,15 @@ public class Nickname {
      * @throws IllegalValueException if given nickname string is invalid.
      */
     public Nickname(String nicknameStr) throws IllegalValueException {
-        if (nicknameStr == null){
-            this.value = new Nickname().value;
-        }
+        if (nicknameStr == null) {
+            this.value = new Nickname().value;}
         else {
             requireNonNull(nicknameStr);
             if (!isValidNickname(nicknameStr)) {
                 throw new IllegalValueException(MESSAGE_NICKNAME_CONSTRAINTS);
             }
-        this.value = nicknameStr;}
+        this.value = nicknameStr; }
+
     }
 
     /**

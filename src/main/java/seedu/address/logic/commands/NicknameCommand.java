@@ -12,9 +12,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nickname;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Nickname;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -51,6 +51,12 @@ public class NicknameCommand extends UndoableCommand {
         this.nickname = nickname;
     }
 
+    /**
+     * updates the person's nickname.
+     * @param personToUpdateNickname
+     * @param nickname
+     * @return
+     */
     private Person updatePersonNickname(ReadOnlyPerson personToUpdateNickname, Nickname nickname) {
         Name name = personToUpdateNickname.getName();
         Phone phone = personToUpdateNickname.getPhone();

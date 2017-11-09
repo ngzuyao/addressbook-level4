@@ -36,13 +36,13 @@ public class SearchCommand extends Command {
 /**
  * Represents a parser that parses input from the search bar
  */
-public class SearchParser {
+public class SearchParser implements Parser<Command> {
 
     /**
      * returns a Command as parsed
      * @param args
-     * @return a FindCommand of the search word args if search bar input is not empty, a ListCommand if empty search bar
-     * @throws ParseException
+     * @return a SearchCommand of the search word args if search bar input is not empty, a ListCommand if empty search bar
+     * @throws ParseException that should never be thrown because there is no restriction on search keywords
      */
     public Command parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
@@ -143,6 +143,18 @@ public class NamePhoneTagContainsKeywordsPredicate implements Predicate<ReadOnly
                                         Boolean newValue) {
                         if (oldValue == true) {
                             searchBox.getTextField().requestFocus();
+                        }
+                    }
+                }
+        );
+
+        searchBox.getTextField().focusedProperty().addListener(
+                new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                                        Boolean newValue) {
+                        if (oldValue == true) {
+                            commandBox.getCommandTextField().requestFocus();
                         }
                     }
                 }

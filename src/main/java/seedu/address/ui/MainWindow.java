@@ -24,14 +24,17 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowWeatherRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -57,6 +60,9 @@ public class MainWindow extends UiPart<Region> {
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+
+    @FXML
+    private VBox topContainer;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -150,24 +156,12 @@ public class MainWindow extends UiPart<Region> {
 
         PersonInformationPanel personInformationPanel = new PersonInformationPanel();
         personInformationPanelPlaceholder.getChildren().add(personInformationPanel.getRoot());
-        setBackground(personInformationPanelPlaceholder,
-                System.getProperty("user.dir") + "/docs/images/backgroundRight.jpg",
-                "/images/backgroundRight.jpg",
-                920, 600);
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        setBackground(personListPanelPlaceholder,
-                System.getProperty("user.dir") + "/docs/images/backgroundLeft.jpg",
-                "/images/backgroundLeft.jpg",
-                330, 600);
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        setBackground(resultDisplayPlaceholder,
-                System.getProperty("user.dir") + "/docs/images/backgroundUp.jpg",
-                "/images/backgroundUp.jpg",
-                1250, 105);
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getFilteredPersonList().size());
@@ -180,6 +174,29 @@ public class MainWindow extends UiPart<Region> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         commandBox.getCommandTextField().requestFocus();
+
+        /*
+        Sets background
+         */
+        /*
+        setBackground(personInformationPanelPlaceholder,
+                System.getProperty("user.dir") + "/docs/images/backgroundRight.jpg",
+                "/images/backgroundRight.jpg",
+                920, 600);
+        setBackground(personListPanelPlaceholder,
+                System.getProperty("user.dir") + "/docs/images/backgroundLeft.jpg",
+                "/images/backgroundLeft.jpg",
+                330, 600);
+        setBackground(resultDisplayPlaceholder,
+                System.getProperty("user.dir") + "/docs/images/backgroundUp.jpg",
+                "/images/backgroundUp.jpg",
+                1250, 105);
+        */
+
+        setBackground(topContainer,
+                "",
+                "/images/bg_01.jpg",
+                1280, 1024);
 
         /*
         ChangeListener for caret focus.
@@ -223,7 +240,7 @@ public class MainWindow extends UiPart<Region> {
     /**
      *  Sets a background image for a stack pane
      */
-    private void setBackground(StackPane pane, String pathname, String jarPath, int width, int height) {
+    private void setBackground(Pane pane, String pathname, String jarPath, int width, int height) {
         File file = new File(pathname);
         try {
             if (file.exists()) {
@@ -297,8 +314,8 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     +     * Opens the weather forecast window.
-     +     */
+     * Opens the weather forecast window.
+     */
     @FXML
     public void handleWeather() throws JAXBException, IOException {
         WeatherWindow weatherWindow = new WeatherWindow();
@@ -329,5 +346,11 @@ public class MainWindow extends UiPart<Region> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowWeatherEvent(ShowWeatherRequestEvent event) throws JAXBException, IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleWeather();
     }
 }

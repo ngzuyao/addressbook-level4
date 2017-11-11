@@ -10,8 +10,8 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <SplitPane dividerPositions="0.5" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <items>
+            <AnchorPane prefWidth="100.0">
                <children>
                   <VBox>
                      <children>
@@ -27,16 +27,16 @@
                   </VBox>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <AnchorPane prefHeight="160.0" prefWidth="100.0">
                <children>
-                   <VBox minHeight="30">
+                  <VBox minHeight="30">
                      <children>
-                         <VBox minHeight="10">
+                        <VBox minHeight="10">
                            <children>
                               <HBox>
                                  <children>
                                     <FlowPane fx:id="tags" />
-                                     <VBox minHeight="10" />
+                                    <VBox minHeight="10" />
                                  </children>
                               </HBox>
                            </children>
@@ -65,7 +65,7 @@
                         </HBox>
                         <HBox>
                            <children>
-                               <VBox minHeight="30" />
+                              <VBox minHeight="30" />
                               <Label fx:id="emailLabel" styleClass="label-bright" text="Email: " />
                               <Label fx:id="email" styleClass="label-bright" />
                            </children>
@@ -74,7 +74,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-        </items>
+         </items>
       </SplitPane>
    </children>
 </AnchorPane>

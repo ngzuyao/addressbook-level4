@@ -63,7 +63,7 @@
             </VBox.margin></StackPane>
     </VBox>
       <GridPane>
-      <StackPane fx:id="personInformationPanelPlaceholder" prefHeight="656.0" prefWidth="1011.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+      <StackPane fx:id="personInformationPanelPlaceholder" prefHeight="2000.0" prefWidth="2000.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
             <GridPane.margin>
                <Insets />
             </GridPane.margin></StackPane>

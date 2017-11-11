@@ -15,7 +15,7 @@
 
 <!-- @@author eeching-->
 
-<VBox fx:id="topContainer" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="topContainer" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
   <stylesheets>
     <URL value="@DarkTheme.css" />
     <URL value="@Extensions.css" />
@@ -52,7 +52,7 @@
   <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
   </StackPane>
 
-  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="NEVER">
     <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
       <padding>
         <Insets bottom="10" left="10" right="10" top="10" />
@@ -63,7 +63,7 @@
             </VBox.margin></StackPane>
     </VBox>
       <GridPane minWidth="1000" prefHeight="650">
-      <StackPane fx:id="personInformationPanelPlaceholder" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <StackPane fx:id="personInformationPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="653.0" prefWidth="1001.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />

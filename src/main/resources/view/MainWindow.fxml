@@ -52,7 +52,7 @@
   <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
   </StackPane>
 
-  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="NEVER">
+  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.25">
     <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
       <padding>
         <Insets bottom="10" left="10" right="10" top="10" />
@@ -62,8 +62,11 @@
                <Insets />
             </VBox.margin></StackPane>
     </VBox>
-      <GridPane minWidth="1000" prefHeight="650">
-      <StackPane fx:id="personInformationPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="653.0" prefWidth="1001.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+      <GridPane>
+      <StackPane fx:id="personInformationPanelPlaceholder" prefHeight="656.0" prefWidth="1011.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin></StackPane>
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />

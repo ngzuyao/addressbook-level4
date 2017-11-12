@@ -1,5 +1,5 @@
 # willxujun
-###### \java\seedu\address\logic\commands\SearchCommandTest.java
+###### /java/seedu/address/logic/commands/SearchCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -96,7 +96,8 @@ public class SearchCommandTest {
      */
     private SearchCommand prepareCommand(String userInput) {
         SearchCommand command =
-                new SearchCommand(new NamePhoneTagContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
+                new SearchCommand(new NamePhoneTagContainsKeywordsPredicate(
+                        Arrays.asList(userInput.split("\\s+"))));
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
@@ -107,7 +108,8 @@ public class SearchCommandTest {
      *     - the {@code FilteredList<ReadOnlyPerson>} is equal to {@code expectedList}<br>
      *     - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
-    private void assertCommandSuccess(SearchCommand command, String expectedMessage, List<ReadOnlyPerson> expectedList) {
+    private void assertCommandSuccess(SearchCommand command, String expectedMessage,
+                                      List<ReadOnlyPerson> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
@@ -117,7 +119,7 @@ public class SearchCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\AddCommandParserTest.java
+###### /java/seedu/address/logic/parser/AddCommandParserTest.java
 ``` java
         //empty (unknown) email value
         expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -131,7 +133,7 @@ public class SearchCommandTest {
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + UNKNOWN_ADDRESS_DESC, new AddCommand(expectedPerson));
 ```
-###### \java\seedu\address\logic\parser\SearchParserTest.java
+###### /java/seedu/address/logic/parser/SearchParserTest.java
 ``` java
 public class SearchParserTest {
 
@@ -156,6 +158,45 @@ public class SearchParserTest {
     }
 
 }
+```
+###### \java\seedu\address\testutil\PersonBuilder.java
+``` java
+    /**
+     * Set the {@code tags} to the person we are building
+     */
+    public PersonBuilder withTags(Set<Tag> tags) {
+        CollectionUtil.elementsAreUnique(tags);
+        this.person.setTags(tags);
+        return this;
+    }
+```
+###### \java\systemtests\EditCommandSystemTest.java
+``` java
+        /* Case: add a tag -> edited*/
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND;
+        ReadOnlyPerson personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Set<Tag> originalTags = new HashSet<>(personToEdit.getTags());
+        originalTags.add(new Tag(VALID_TAG_FRIEND));
+        System.out.println(personToEdit.getAsText());
+        editedPerson = new PersonBuilder(personToEdit)
+                .withTags(originalTags).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: delete a tag -> edited*/
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + RM_TAG_DESC_FRIEND;
+        originalTags.remove(new Tag(VALID_TAG_FRIEND));
+        editedPerson = new PersonBuilder(personToEdit)
+                .withTags(originalTags).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: add a tag then delete the same tag -> edited*/
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND + RM_TAG_DESC_FRIEND;
+        editedPerson = new PersonBuilder(personToEdit)
+                .withTags(originalTags).build();
+        assertCommandSuccess(command, index, editedPerson);
 ```
 ###### \java\systemtests\FindCommandSystemTest.java
 ``` java

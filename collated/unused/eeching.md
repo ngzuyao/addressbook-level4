@@ -1,10 +1,6 @@
 # eeching
 ###### /Gender.java
 ``` java
-/**
- * Represents a Person's gender in the address book.
- * Guarantees: immutable.
- */
 public class Gender {
 
     public static final String MESSAGE_GENDER_CONSTRAINTS =
@@ -51,9 +47,6 @@ public class Gender {
 ```
 ###### /GenderCommand.java
 ``` java
-/**
- * Adds or updates the birthday of a person identified using it's last displayed index from the address book.
- */
 public class GenderCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "gender";
@@ -119,22 +112,6 @@ public class GenderCommand extends UndoableCommand {
 ```
 ###### /GenderCommandParser.java
 ``` java
-package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
-
-import java.util.StringTokenizer;
-
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.GenderCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Gender;
-
-/**
- * Parses input arguments and creates a new GenderCommand object
- */
 public class GenderCommandParser implements Parser<GenderCommand> {
 
     /**
@@ -161,6 +138,43 @@ public class GenderCommandParser implements Parser<GenderCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenderCommand.MESSAGE_USAGE));
         }
     }
+
+}
+```
+###### /GenderCommandTest.java
+``` java
+public class GenderCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void execute_personAcceptedByModel_updateGenderSuccessful() throws Exception {
+        Person updatedPerson = new PersonBuilder(model.getFilteredPersonList()
+                .get(INDEX_FIRST_PERSON.getZeroBased())).withGender("male").build();
+
+        Gender gender = new Gender("male");
+        GenderCommand genderCommand = prepareCommand(INDEX_FIRST_PERSON, gender);
+
+        String expectedMessage = String.format(GenderCommand.MESSAGE_UPDATE_PERSON_GENDER_SUCCESS, updatedPerson);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updatePerson(model.getFilteredPersonList().get(0), updatedPerson);
+
+        assertCommandSuccess(genderCommand, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Returns a {@code GenderCommand} with the parameters {@code index + Gender}.
+     */
+    private GenderCommand prepareCommand(Index index, Gender gender) {
+        GenderCommand command = new GenderCommand(index, gender);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
 
 }
 ```

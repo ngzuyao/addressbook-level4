@@ -34,7 +34,7 @@ public class UploadPhotoCommand extends UndoableCommand {
             + "Parameters: "
             + "INDEX (must be a positive integer)\n"
             + "photoPath"
-            + "Example: " + COMMAND_WORD + " 1" + "/img.png";
+            + "Example: " + COMMAND_WORD + " 1" + " /img.png";
 
     public static final String MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
@@ -87,5 +87,13 @@ public class UploadPhotoCommand extends UndoableCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS, personUpdated));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UploadPhotoCommand // instanceof handles nulls
+                && this.targetIndex.equals(((UploadPhotoCommand) other).targetIndex)
+                && this.photo.equals(((UploadPhotoCommand) other).photo)); // state check
     }
 }

@@ -1,13 +1,6 @@
 package seedu.address.model.person;
 
-import java.awt.BorderLayout;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -16,6 +9,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Person's photo in the address book.
  */
 public class Photo {
+
+    public static final String MESSAGE_PHOTO_NOT_FOUND = "The given path name does not exist";
 
     public final String pathName;
 
@@ -31,24 +26,7 @@ public class Photo {
      * Constructs with a given pathName.
      */
     public Photo(String pathName) throws IllegalValueException {
-        //requireNonNull(pathName);
-
         this.pathName = pathName;
-    }
-
-    /**
-     * Returns true if a given string is empty, which means an unknown path
-     */
-    private static boolean isUnknownPath(String test) {
-        return test.equals("");
-    }
-
-    /**
-     *
-     * @return true if a given pathName has unknown value
-     */
-    public boolean isUnknownPathName() {
-        return pathName.equals("");
     }
 
     public String getPathName() {
@@ -56,24 +34,12 @@ public class Photo {
     }
 
     /**
-     *  Displace the photo
+     *
+     * @return true if a given pathname has unknown value
      */
-    public void showPhoto() {
-        JFrame frame = new JFrame("Icon Photo");
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(pathName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ImageIcon imgIcon = new ImageIcon(img);
-        JLabel lbl = new JLabel();
-        lbl.setIcon(imgIcon);
-        frame.getContentPane().add(lbl, BorderLayout.CENTER);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+    public static boolean isUnknownPath(String test) {
+        File file = new File(test);
+        return !file.exists();
     }
 
     @Override

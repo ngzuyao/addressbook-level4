@@ -13,6 +13,12 @@ public class CustomField {
 
     public static final String MESSAGE_CUSTOM_FIELD_CONSTRAINTS = "CustomFields names should be alphanumeric";
 
+    /*
+     * The first character of the custom field name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String CUSTOM_FIELD_VALIDATION_REGEX = "[^\\s].*";
+
     public final String customFieldName;
     private String customFieldValue;
 
@@ -47,6 +53,13 @@ public class CustomField {
         this.customFieldValue = newCustomFieldValue;
     }
 
+    /**
+     * Returns true if a given string is a valid person custom field.
+     */
+    public static boolean isValidCustomField(String test) {
+        return test.matches(CUSTOM_FIELD_VALIDATION_REGEX);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -64,7 +77,7 @@ public class CustomField {
      * Format state as text for viewing.
      */
     public String toString() {
-        return customFieldValue;
+        return customFieldName + ": " + customFieldValue;
     }
 
 }

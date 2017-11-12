@@ -45,9 +45,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: transparent;
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -167,7 +167,7 @@
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
 }
 
 .result-display .label {
@@ -180,8 +180,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
 }
 
@@ -190,13 +190,13 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: transparent;
 }
 
 .context-menu {
@@ -231,7 +231,21 @@
    -fx-background-color: black;
 }
 
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
 
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
+.text-area {
+    text-area-background: transparent ;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
 
 /*
  * Metro style Push Button
@@ -372,11 +386,7 @@
 
 
 #resultDisplay .content {
-<<<<<<< HEAD
-    -fx-background-image: url("file:/repos/Address%20Book%204/docs/images/backgroundUp.jpg");
-=======
-    -fx-background-color: transparent, transparent, transparent, transparent;
->>>>>>> 8a402e5be07f506d709196db01090d322de946e5
+    background-color: transparent !important;
     -fx-background-radius: 0;
 }
 

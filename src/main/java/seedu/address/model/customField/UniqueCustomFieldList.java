@@ -40,6 +40,13 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
     }
 
     /**
+     *  Gets the size of the Custom Field List
+     */
+    public int getSize() {
+        return internalList.size();
+    }
+
+    /**
      * Returns all customFields in this list as a Set.
      * This set is mutable and change-insulated against the internal list.
      */
@@ -153,18 +160,6 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
     public int hashCode() {
         assert CollectionUtil.elementsAreUnique(internalList);
         return internalList.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (CustomField customField : internalList) {
-            sb.append(customField.customFieldName);
-            sb.append(": ");
-            sb.append(customField.getCustomFieldValue());
-            sb.append("\r\n");
-        }
-        return sb.toString();
     }
 
 }

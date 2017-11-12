@@ -58,10 +58,15 @@ public interface ReadOnlyPerson {
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+                .append(getAddress());
+        if (getTags().size() > 0) {
+            builder.append(" Tags: ");
+        }
         getTags().forEach(builder::append);
-        getCustomFields().forEach(builder::append);
+        for (CustomField customField : getCustomFields()) {
+            builder.append(" ");
+            builder.append(customField.toString());
+        }
         return builder.toString();
     }
 

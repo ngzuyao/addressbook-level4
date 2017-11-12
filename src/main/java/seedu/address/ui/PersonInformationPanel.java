@@ -1,17 +1,12 @@
-//@@author ngzuyao
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -21,6 +16,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
+//@@author ngzuyao
 /**
  * The person information panel of the app.
  */
@@ -33,9 +29,6 @@ public class PersonInformationPanel extends UiPart<Region> {
     private static final int MIN_HEIGHT = 40;
     private static final int MIN_WIDTH = 160;
 
-    protected List<String> optionalPhoneDisplayList = new ArrayList<String>();
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
-
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private ReadOnlyPerson person;
@@ -44,6 +37,10 @@ public class PersonInformationPanel extends UiPart<Region> {
     private VBox informationPane;
     @FXML
     private VBox optionalPhoneList;
+    @FXML
+    private VBox customFieldNameList;
+    @FXML
+    private VBox customFieldValueList;
     @FXML
     private FlowPane tags;
     @FXML
@@ -64,8 +61,6 @@ public class PersonInformationPanel extends UiPart<Region> {
     private Label email;
     @FXML
     private Label emailLabel;
-    @FXML
-    private Label customFields;
 
     public PersonInformationPanel() {
         super(FXML);
@@ -112,10 +107,10 @@ public class PersonInformationPanel extends UiPart<Region> {
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
         email.textProperty().bind(Bindings.convert(person.emailProperty()));
-        customFields.textProperty().bind(Bindings.convert(person.customFieldProperty()));
         id.setText(Integer.toString(personId));
         optionalPhoneList.getChildren().clear();
         initOptionalPhones(person);
+        initCustomField(person);
     }
 
     /**
@@ -144,7 +139,27 @@ public class PersonInformationPanel extends UiPart<Region> {
             optionalPhoneList.getChildren().add(otherPhone);
         });
     }
+    //@@author
 
+    /**
+     * Initialise custom field display flowpane
+     */
+    //@@author LuLechuan
+    public void initCustomField(ReadOnlyPerson person) {
+        customFieldNameList.getChildren().clear();
+        customFieldValueList.getChildren().clear();
+        person.getCustomFields().forEach(customField -> {
+            Label customFieldName = new Label(customField.customFieldName + ":");
+            setIndentation(customFieldName);
+            customFieldNameList.getChildren().add(customFieldName);
+            Label customFieldValue = new Label(customField.getCustomFieldValue());
+            setIndentation(customFieldValue);
+            customFieldValueList.getChildren().add(customFieldValue);
+        });
+    }
+    //@@author
+
+    //@@author ngzuyao
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -152,7 +167,6 @@ public class PersonInformationPanel extends UiPart<Region> {
         bindListeners(event.getNewSelection().person, event.getNewSelection().stringid);
     }
 
-    //@@author ngzuyao
     private void setLabelIndentation() {
         phoneLabel.setMinHeight(MIN_HEIGHT);
         phoneLabel.setMinWidth(MIN_WIDTH);
@@ -171,7 +185,6 @@ public class PersonInformationPanel extends UiPart<Region> {
         label.setMinWidth(MIN_WIDTH);
         label.setMinHeight(MIN_HEIGHT);
     }
-    //@@author
 
     @Override
     public boolean equals(Object other) {

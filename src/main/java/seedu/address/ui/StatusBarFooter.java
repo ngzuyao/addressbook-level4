@@ -62,6 +62,7 @@ public class StatusBarFooter extends UiPart<Region> {
         this.totalPersons.setText(totalPersons + " person(s) in total");
     }
     //@@author
+
     /**
      * Sets the clock used to determine the current time.
      */
@@ -75,16 +76,19 @@ public class StatusBarFooter extends UiPart<Region> {
     public static Clock getClock() {
         return clock;
     }
-    //@@author eeching
-    private void setSaveWeather(String weather) {
-        Platform.runLater(() -> this.weatherReport.setText(weather));
-    }
-    //@@author
+
     private void setSyncStatus(String status) {
         Platform.runLater(() -> this.syncStatus.setText(status));
     }
 
+    /**
+     * Set the weather of Singapore
+     */
     //@@author eeching
+    private void setSaveWeather(String weather) {
+        Platform.runLater(() -> this.weatherReport.setText(weather));
+    }
+
     private String getWeather() throws JAXBException {
         try {
             WeatherRequest request = new WeatherRequest();

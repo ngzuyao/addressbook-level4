@@ -14,8 +14,6 @@ import seedu.address.model.person.exceptions.DuplicatePhoneException;
 import seedu.address.model.person.exceptions.PhoneNotFoundException;
 
 
-
-//@@author eeching
 /**
  * A list of phones that enforces no nulls and uniqueness between its elements.
  *
@@ -23,21 +21,30 @@ import seedu.address.model.person.exceptions.PhoneNotFoundException;
  *
  * @see Phone#equals(Object)
  */
+//@@author eeching
 public class UniquePhoneList implements Iterable<Phone> {
 
     private final ObservableList<Phone> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs phoneList with a number.
+     * Empty constructor
      */
 
     public UniquePhoneList() {}
+
+    /**
+     * Constructs phoneList with a phone.
+     */
 
     public UniquePhoneList(Phone phone) {
 
         requireNonNull(phone);
         internalList.add(phone);
     }
+
+    /**
+     * Constructs phoneList with a set of phones.
+     */
 
     public UniquePhoneList(Set<Phone> phones) {
         requireAllNonNull(phones);
@@ -90,24 +97,11 @@ public class UniquePhoneList implements Iterable<Phone> {
         return phoneFoundAndDeleted;
     }
 
-
+    /**
+     *return the number of phones in the list
+     */
     public int getSize() {
         return internalList.size();
-    }
-
-    public String getAllPhone() {
-
-        if (internalList.size() > 1) {
-            String rest = "The additional phone number(s) are/is \n";
-            int index = 1;
-            for (Phone phone: internalList) {
-                rest = rest + index + "/ " + phone.number + "\n";
-                index++;
-            }
-            return rest;
-        } else {
-            return "";
-        }
     }
 
 

@@ -53,7 +53,7 @@ public class UploadPhotoCommandTest {
         Person updatedPerson = new PersonBuilder(model.getFilteredPersonList()
                 .get(INDEX_FIRST_PERSON.getZeroBased())).withPhoto(null).build();
 
-        Photo photo = new Photo(null);
+        Photo photo = new Photo();
         UploadPhotoCommand uploadPhotoCommand = prepareCommand(INDEX_FIRST_PERSON, photo);
 
         String expectedMessage = String.format(UploadPhotoCommand.MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS, updatedPerson);

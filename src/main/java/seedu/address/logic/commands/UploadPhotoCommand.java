@@ -77,6 +77,10 @@ public class UploadPhotoCommand extends UndoableCommand {
 
         Person personUpdated = updatePersonPhoto(personToUpdatePhoto, photo);
 
+        if (Photo.isUnknownPath(photo.getPathName())) {
+            throw new CommandException(Messages.MESSAGE_UNKNOWN_PATH);
+        }
+
         try {
             model.updatePerson(personToUpdatePhoto, personUpdated);
         } catch (DuplicatePersonException dpe) {

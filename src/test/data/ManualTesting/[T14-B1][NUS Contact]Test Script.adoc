@@ -7,8 +7,6 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 Welcome to the test script for NUS Contact. We have provided a comprehensive list of test commands for you to try on
 the NUS Contact application, along with their expected output.
 
-Feel free to report any bugs to our official reporting channel: bugs@tunedinapp.com
-
 == Getting Started
 
 To commence testing for NUS Contact, we have prepared for you sample data for you to load into the application to get going

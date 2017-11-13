@@ -1,14 +1,34 @@
 # willxujun
 ###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
+        //loops indices to edit multiple contacts
+        for (Index index: indices) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+        }
+
+        for (Index index: indices) {
+            ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
+            Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+            try {
+                model.updatePerson(personToEdit, editedPerson);
+            } catch (DuplicatePersonException dpe) {
+                throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            } catch (PersonNotFoundException pnfe) {
+                throw new AssertionError("The target person cannot be missing");
+            }
+        }
+```
+###### \java\seedu\address\logic\commands\EditCommand.java
+``` java
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
         updateTags(updatedTags, editPersonDescriptor);
 ```
 ###### \java\seedu\address\logic\commands\EditCommand.java
 ``` java
-
     /**
-     * clears, adds and removes tags according to the descriptor
+     * clears, adds and removes tags according to {@code editPersonDescriptor}.
      * @param updatedTags
      * @param editPersonDescriptor
      */

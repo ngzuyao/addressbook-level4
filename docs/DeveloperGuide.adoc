@@ -676,7 +676,7 @@ For `remove`, we will loop through the uniquePhoneList and remove this phone and
 
 **Sequence Diagram**
 
-image::PhoneCommandSequenceDiagram.JPG[width="800"]
+image::PhoneCommandSequenceDiagram.jpg[width="800"]
 
 ==== Storage
 

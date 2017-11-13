@@ -6,7 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author LuLechuan
 /**
- * Represents a CustomField in the address book.
+ * Represents a CustomField in the contact book.
  * Guarantees: immutable.
  */
 public class CustomField {

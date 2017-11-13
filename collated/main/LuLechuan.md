@@ -1,22 +1,8 @@
 # LuLechuan
-###### \java\seedu\address\commons\events\ui\ShowWeatherRequestEvent.java
-``` java
-/**
- * An event requesting to view the yahoo weather page.
- */
-public class ShowWeatherRequestEvent extends BaseEvent {
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
-}
-```
 ###### \java\seedu\address\logic\commands\CustomCommand.java
 ``` java
 /**
- * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
+ * Adds or updates a custom field of a person identified using it's last displayed index from the contact book.
  */
 public class CustomCommand extends UndoableCommand {
 
@@ -31,7 +17,7 @@ public class CustomCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1" + " nickname" + " Ah Chuang";
 
     public static final String MESSAGE_UPDATE_PERSON_CUSTOM_FIELD_SUCCESS = "Updated Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
     public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
@@ -57,11 +43,12 @@ public class CustomCommand extends UndoableCommand {
         UniquePhoneList uniquePhoneList = personToUpdateCustomField.getPhoneList();
         Set<Tag> tags = personToUpdateCustomField.getTags();
         UniqueCustomFieldList customFields = personToUpdateCustomField.getCustomFieldList();
+        UniqueCustomFieldList newCustomFields = new UniqueCustomFieldList(customFields.toSet());
 
-        customFields.add(customField);
+        newCustomFields.add(customField);
 
         Person personUpdated = new Person(name, phone, email, address,
-                photo, uniquePhoneList, tags, customFields.toSet());
+                photo, uniquePhoneList, tags, newCustomFields.toSet());
 
         return personUpdated;
     }
@@ -105,7 +92,7 @@ public class CustomCommand extends UndoableCommand {
 ###### \java\seedu\address\logic\commands\DeleteByNameCommand.java
 ``` java
 /**
- * Deletes a person identified using the person's name from the address book.
+ * Deletes a person identified using the person's name from the contact book.
  */
 public class DeleteByNameCommand extends UndoableCommand {
 
@@ -163,7 +150,7 @@ public class DeleteByNameCommand extends UndoableCommand {
 ###### \java\seedu\address\logic\commands\UploadPhotoCommand.java
 ``` java
 /**
- * Adds or updates the photo of a person identified using it's last displayed index from the address book.
+ * Adds or updates the photo of a person identified using it's last displayed index from the contact book.
  */
 public class UploadPhotoCommand extends UndoableCommand {
 
@@ -177,7 +164,7 @@ public class UploadPhotoCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1" + " /img.png";
 
     public static final String MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS = "Updated Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
     public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
@@ -351,7 +338,7 @@ public class UploadPhotoCommandParser implements Parser<UploadPhotoCommand> {
 ###### \java\seedu\address\model\customField\CustomField.java
 ``` java
 /**
- * Represents a CustomField in the address book.
+ * Represents a CustomField in the contact book.
  * Guarantees: immutable.
  */
 public class CustomField {
@@ -513,8 +500,7 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
                     remove(toAdd.customFieldName);
                     return;
                 }
-                cf.setCustomFieldValue(toAdd.getCustomFieldValue());
-                return;
+                remove(toAdd.customFieldName);
             }
         }
 
@@ -632,7 +618,7 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
 ###### \java\seedu\address\model\person\Photo.java
 ``` java
 /**
- * Represents a Person's photo in the address book.
+ * Represents a Person's photo in the contact book.
  */
 public class Photo {
 

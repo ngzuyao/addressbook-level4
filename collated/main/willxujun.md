@@ -69,7 +69,7 @@
 ###### \java\seedu\address\logic\commands\SearchCommand.java
 ``` java
 /**
- * Finds and lists all persons in address book whose name, phone or tag contains any of the argument keywords.
+ * Finds and lists all persons in contact book whose name, phone or tag contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {
@@ -264,16 +264,7 @@ public class SearchBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyTyped(KeyEvent keyEvent) {
-        String s = keyEvent.getCharacter();
-        if (isDeleteOrBackspace(s)) {
-            if (!searchBuffer.isEmpty()) {
-                searchBuffer = searchBuffer.substring(0, searchBuffer.length() - 1);
-            } else {
-                return;
-            }
-        } else {
-            searchBuffer = searchBuffer + s;
-        }
+        searchBuffer = searchTextField.getText();
         try {
             CommandResult commandResult = logic.executeSearch(searchBuffer);
             logger.info("Result: " + commandResult.feedbackToUser);
@@ -285,15 +276,12 @@ public class SearchBox extends UiPart<Region> {
         }
     }
 
-    private boolean isDeleteOrBackspace (String toTest) {
-        return toTest.equals("\u0008") || toTest.equals("\u007F");
-    }
-
 }
 ```
 ###### \resources\view\SearchBox.fxml
 ``` fxml
-<StackPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <TextField fx:id="searchTextField" onKeyTyped="#handleKeyTyped" promptText="Search..." />
+
+<StackPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <TextField fx:id="searchTextField" onKeyReleased="#handleKeyTyped" promptText="Search..." />
 </StackPane>
 ```

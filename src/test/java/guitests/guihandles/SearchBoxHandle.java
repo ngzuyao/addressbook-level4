@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
-
+//@@author willxujun
 /**
  * A handle to the {@code SearchBox} in the GUI.
  */

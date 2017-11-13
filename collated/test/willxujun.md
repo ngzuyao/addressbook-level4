@@ -1,4 +1,44 @@
 # willxujun
+###### \java\guitests\guihandles\SearchBoxHandle.java
+``` java
+/**
+ * A handle to the {@code SearchBox} in the GUI.
+ */
+public class SearchBoxHandle extends NodeHandle<TextField> {
+
+    public static final String COMMAND_INPUT_FIELD_ID = "#searchTextField";
+
+    public SearchBoxHandle(TextField searchBoxNode) {
+        super(searchBoxNode);
+    }
+
+    /**
+     * Returns the text in the search box.
+     */
+    public String getInput() {
+        return getRootNode().getText();
+    }
+
+    /**
+     * Enters the given command in the Command Box and presses enter.
+     * @return true because search box never fails.
+     */
+    public boolean run(String command) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.pauseForHuman();
+
+        return true;
+    }
+
+    /**
+     * Returns the list of style classes present in the command box.
+     */
+    public ObservableList<String> getStyleClass() {
+        return getRootNode().getStyleClass();
+    }
+}
+```
 ###### \java\seedu\address\logic\commands\EditCommandTest.java
 ``` java
         //clear tags, setting both tags to add and tags to remove to empty
@@ -197,6 +237,45 @@ public class SearchParserTest {
         return this;
     }
 ```
+###### \java\seedu\address\ui\SearchBoxTest.java
+``` java
+public class SearchBoxTest extends GuiUnitTest {
+    private static final String COMMAND = "abc";
+    private static final String BACKSPACE = "\u0008";
+    private static final String DELETE = "\u007f";
+    private ArrayList<String> defaultStyleOfSearchBox;
+    private SearchBoxHandle searchBoxHandle;
+
+    @Before
+    public void setUp() {
+        Model model = new ModelManager();
+        Logic logic = new LogicManager(model);
+
+        SearchBox searchBox = new SearchBox(logic);
+        searchBoxHandle = new SearchBoxHandle(getChildNode(searchBox.getRoot(),
+                SearchBoxHandle.COMMAND_INPUT_FIELD_ID));
+        uiPartRule.setUiPart(searchBox);
+
+        defaultStyleOfSearchBox = new ArrayList<>(searchBoxHandle.getStyleClass());
+    }
+
+    @Test
+    public void searchBox_successfulCommand() {
+        assertBehaviorForSuccessfulCommand();
+    }
+
+    /**
+     * Runs a command that succeeds, then verifies that <br>
+     *      - the text remains <br>
+     */
+    private void assertBehaviorForSuccessfulCommand() {
+        guiRobot.type(KeyCode.A);
+        guiRobot.type(KeyCode.B);
+        guiRobot.type(KeyCode.C);
+        assertEquals(COMMAND, searchBoxHandle.getInput());
+    }
+}
+```
 ###### \java\systemtests\EditCommandSystemTest.java
 ``` java
         /* Case: add a tag -> edited*/
@@ -233,7 +312,7 @@ public class SearchParserTest {
 ```
 ###### \java\systemtests\FindCommandSystemTest.java
 ``` java
-        /* Case: find multiple persons in address book, 2 keywords -> 0 persons found because of new AND search*/
+        /* Case: find multiple persons in contact book, 2 keywords -> 0 persons found because of new AND search*/
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);

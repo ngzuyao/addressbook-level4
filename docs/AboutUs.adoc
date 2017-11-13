@@ -10,7 +10,7 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 image::willxujun.png[width="150", align="left"]
 {empty}[https://github.com/willxujun[github]]
 
-Role: Team lead
+Role: Team lead +
 Responsibilities: Logic + Ui
 
 '''
@@ -19,7 +19,7 @@ Responsibilities: Logic + Ui
 image::eeching.png[width="150", align="left"]
 {empty}[https://github.com/eeching[github]]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Logic + Model + Ui
 
 '''
@@ -28,7 +28,7 @@ Responsibilities: Logic + Model + Ui
 image::ngzuyao.png[width="150", align="left"]
 {empty}[https://github.com/ngzuyao[github]]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Ui
 
 '''
@@ -37,7 +37,7 @@ Responsibilities: Ui
 image::lulechuan.png[width="150", align="left"]
 {empty}[https://github.com/lulechuan[github]] [<<LuLechuan#, portfolio>>]
 
-Role: Developer
+Role: Developer +
 Responsibilities: Logic + Model + Storage + Ui
 
 '''

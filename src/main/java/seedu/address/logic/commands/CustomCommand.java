@@ -67,11 +67,12 @@ public class CustomCommand extends UndoableCommand {
         UniquePhoneList uniquePhoneList = personToUpdateCustomField.getPhoneList();
         Set<Tag> tags = personToUpdateCustomField.getTags();
         UniqueCustomFieldList customFields = personToUpdateCustomField.getCustomFieldList();
+        UniqueCustomFieldList newCustomFields = new UniqueCustomFieldList(customFields.toSet());
 
-        customFields.add(customField);
+        newCustomFields.add(customField);
 
         Person personUpdated = new Person(name, phone, email, address,
-                photo, uniquePhoneList, tags, customFields.toSet());
+                photo, uniquePhoneList, tags, newCustomFields.toSet());
 
         return personUpdated;
     }

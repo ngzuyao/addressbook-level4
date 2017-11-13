@@ -51,7 +51,7 @@ public class Person implements ReadOnlyPerson, Comparable<Person> {
     }
 
     /**
-     * Every field must be present and not null except Phone list, Custom Field and Photo.
+     * Every field must be present and not null except Custom Field and Photo.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, UniquePhoneList list) {
         requireAllNonNull(name, phone, email, address, tags);

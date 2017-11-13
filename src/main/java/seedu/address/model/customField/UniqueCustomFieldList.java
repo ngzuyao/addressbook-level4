@@ -96,8 +96,7 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
                     remove(toAdd.customFieldName);
                     return;
                 }
-                cf.setCustomFieldValue(toAdd.getCustomFieldValue());
-                return;
+                remove(toAdd.customFieldName);
             }
         }
 

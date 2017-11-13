@@ -4,7 +4,7 @@
 /**
  * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
  */
-public class PhoneCommand extends UndoableCommand {
+public class PhoneCommand extends Command {
 
     public static final String COMMAND_WORD = "updatePhone";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -23,12 +23,16 @@ public class PhoneCommand extends UndoableCommand {
             + "PHONE "
             + "NAME (must be the full name saved in the Contact Book)\n"
             + "Example: " + COMMAND_WORD + " byName" + " add" + " 6583609887 " + "Alex Yeoh";
-    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.\n";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n";
-    public static final String PHONE_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number to be removed is not found in"
+
+    private static final String COMMAND_ADD = "add";
+    private static final String COMMAND_REMOVE = "remove";
+    private static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.\n";
+    private static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n";
+    private static final String PHONE_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number to be removed is not found in"
             + " the list.\n";
     public static final String DUPLICATE_PHONE_EXCEPTION_MESSAGE = "Phone number to be added already exists in"
             + " the list.\n";
+
     public static final String INVALID_COMMAND_MESSAGE = "Command is invalid, please check again.\n";
     public static final String PRIMARY_PHONE_MESSAGE = "The primary phone number is %s.\n";
     public static final String ADD_PHONE_SUCCESS_MESSAGE = "Phone number %s has been added.\n";
@@ -121,7 +125,7 @@ public class PhoneCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult execute() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         ReadOnlyPerson personToUpdatePhoneList = null;
 
@@ -438,7 +442,7 @@ public class WeatherRequest {
     private static final int WEATHER_INDEX_FROM_CHANNEL = 0;
     private static final int TEMPERATURE_INDEX_FROM_CHANNEL = 2;
     private static final String LOCATION_INFORMATION = "Singapore GMT +0800";
-    private static final String DEGREE_CELSIUS = "�?, ";
+    private static final String DEGREE_CELSIUS = "â?, ";
 
 
 

@@ -231,6 +231,7 @@
    -fx-background-color: black;
 }
 
+/*@@author LuLechuan*/
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
 }
@@ -246,6 +247,7 @@
 .text-area .content {
     -fx-background-color: text-area-background ;
 }
+/*@@author*/
 
 /*
  * Metro style Push Button

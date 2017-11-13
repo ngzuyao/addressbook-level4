@@ -32,10 +32,13 @@ public class CustomCommand extends UndoableCommand {
 
     public static final String MESSAGE_UPDATE_PERSON_CUSTOM_FIELD_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
 
     private final CustomField customField;
+
+    private final Logger logger = LogsCenter.getLogger(CustomCommand.class);
 
     public CustomCommand(Index targetIndex, CustomField customField) {
         this.targetIndex = targetIndex;
@@ -67,7 +70,9 @@ public class CustomCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
+        logger.info("Get the person of the specified index.");
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.warning(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -77,8 +82,10 @@ public class CustomCommand extends UndoableCommand {
         try {
             model.updatePerson(personToUpdateCustomField, personUpdated);
         } catch (DuplicatePersonException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_PERSON);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
+            logger.warning(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -171,10 +178,13 @@ public class UploadPhotoCommand extends UndoableCommand {
 
     public static final String MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
 
     private final Photo photo;
+
+    private final Logger logger = LogsCenter.getLogger(UploadPhotoCommand.class);
 
     public UploadPhotoCommand(Index targetIndex, Photo photo) {
         this.targetIndex = targetIndex;
@@ -202,6 +212,7 @@ public class UploadPhotoCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
+        logger.info("Get the person of the specified index.");
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -210,11 +221,18 @@ public class UploadPhotoCommand extends UndoableCommand {
 
         Person personUpdated = updatePersonPhoto(personToUpdatePhoto, photo);
 
+        if (Photo.isUnknownPath(photo.getPathName())) {
+            logger.warning(Messages.MESSAGE_UNKNOWN_PATH);
+            throw new CommandException(Messages.MESSAGE_UNKNOWN_PATH);
+        }
+
         try {
             model.updatePerson(personToUpdatePhoto, personUpdated);
         } catch (DuplicatePersonException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_PERSON);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
+            logger.warning(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -832,4 +850,56 @@ public class XmlAdaptedPhone {
             customFieldValueList.getChildren().add(customFieldValue);
         });
     }
+```
+###### \resources\view\DarkTheme.css
+``` css
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
+.text-area {
+    text-area-background: transparent ;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
+```
+###### \resources\view\PersonInformationPanel.fxml
+``` fxml
+                   <ScrollPane style="-fx-background-color: transparent;" prefHeight="450" prefWidth="450">
+                       <VBox>
+                         <children>
+                            <Label fx:id="id" styleClass="label-header" />
+                            <Label fx:id="name" styleClass="name" />
+                                 <HBox>
+                                   <children>
+                                       <VBox prefHeight="200.0" prefWidth="100.0">
+                                           <children>
+                                               <VBox fx:id="customFieldNameList" prefHeight="0.0" prefWidth="400.0" styleClass="label-bright" />
+                                           </children>
+                                       </VBox>
+                                       <VBox prefHeight="0.0" prefWidth="400.0">
+                                           <children>
+                                               <VBox fx:id="customFieldValueList" prefHeight="0.0" prefWidth="400.0" styleClass="label-bright" />
+                                           </children>
+                                       </VBox>
+                                   </children>
+                                </HBox>
+                         </children>
+                      </VBox>
+                   </ScrollPane>
+```
+###### \resources\view\PersonListCard.fxml
+``` fxml
+  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="60.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" >
+    <children>
+      <ImageView fx:id="photoContainer" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+  </HBox>
+</HBox>
 ```

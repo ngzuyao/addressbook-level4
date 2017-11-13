@@ -1,0 +1,158 @@
+= Test Script
+:relfileprefix: team/
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+:imagesDir: images
+:stylesDir: stylesheets
+
+Welcome to the test script for NUS Contact. We have provided a comprehensive list of test commands for you to try on
+the NUS Contact application, along with their expected output.
+
+Feel free to report any bugs to our official reporting channel: bugs@tunedinapp.com
+
+== Getting Started
+
+To commence testing for NUS Contact, we have prepared for you sample data for you to load into the application to get going
+right away!
+
+Here's how to load the files into the application for testing.
+
+* In your new copy of NUS Contact app, copy the file SampleData.xml (included in this folder) into the data folder in your
+NUS Contact application.
+** If there is no data folder, create one.
+** If there is a addressbook.xml file created, delete them.
+
+Congratulations! You have the sample data loaded and ready to have a try!
+
+== Testing
+
+=== Command Box:
+
+==== Help Command
+*Input: help +
+*Output: help window is opened
+
+==== Add Command
+*Input: add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 +
+*Output: New person added ..
+
+*Input: add n/John Doe +
+*Output: Invalid command format! ..
+
+*Input: add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 +
+*Output: This person already exists in the Contact Book.
+
+*Input: clear +
+       add n/John Doe p/98765432 e/ a/ +
+*Output: Contact Book has been cleared! +
+        New person added ..
+
+==== List Command
+*Input: list +
+*Output: Listed all persons
+
+==== Edit Command
+*Input: edit 1 p/91234567 e/johndoe@example.com +
+*Output: Edited Persons at the following indices: [1]
+
+*Input: edit 1 2 t/best -t/worst +
+*Output: Edited Persons at the following indices: [1, 2]
+
+==== Delete Command
+*Input: delete 2 +
+*Output: Deleted Person .. (The 2nd person in the contact book is deleted)
+
+*Input: delete 0 +
+*Output: Invalid command format! ..
+
+==== DeleteByName Command
+*Input: deleteByName John Doe +
+*Output: Deleted Person .. (Person named John Doe is deleted)
+
+*Input: deleteByName InvalidName +
+*Output: The person's name is not found
+
+==== Select Command
+*Input: select 1 +
+*Output: Selected Person: 1
+
+*Input: select -1 +
+*Output: Invalid command format! ..
+
+==== Custom Command
+*Input: custom 1 NickName Ahchuang +
+*Output: Updated Person ..(NickName field with value Ahchuang is created for the 1st person)
+
+*Input: custom 1 NickName +
+*Output: Updated Person .. (NickName field of the 1st person is removed)
+
+*Input: custom Age 21 +
+*Output: Invalid command format! ..
+
+==== Upload Photo Command
+*Input: upload 1 D:\Git Projects\wolf.jpg +
+*Output: Updated Person .. (photo is added for 1st person)
+
+*Input: upload 1 invalidPath +
+*Output: The path to the image is not found
+
+==== Update Phone Command
+*Input: updatePhone 1 add 83608688 +
+*Output: Updated Person ..(success)
+
+*Input: updatePhone 1 add 83608688 +
+*Output: (fail due to duplicate)
+
+*Input: updatePhone byName add 83060774 Alex Yeoh +
+*Output: Updated Person ..(success)
+
+*Input: updatePhone 1 remove 83608688 +
+*Output: Updated Person .. (success)
+
+*Input: updatePhone 1 remove 86666666 +
+*Output: (failure due to PhoneNotFound)
+
+*Input: updatePhone 1 adddd 83608688 +
+*Output: Invalid command format! ..
+
+*Input: updatePhone -1 add 83608688 +
+*Output: (failure due to invalid index)
+
+*Input: updatePhone 1 add 83608-688 +
+*Output: (failure due to invalid phone)
+
+*Input: updatePhone 1 add 83 +
+*Output: (failure due to invalid phone, must be at least 3 digits)
+
+*Input: updatePhone byName add 8897768 Alex Yeo +
+*Output: (failure since not full name)
+
+*Input: updatePhone byname add 83608688 Alex Yeoh +
+*Output: (failure due to invalid command)
+
+==== Undo/Redo Command
+*Input: undo +
+*Output: Undo success!
+
+*Input: redo +
+*Output: Redo success!
+
+==== Exit
+*Input: exit +
+*Output: (Contact Book is closed)
+
+=== Search Box:
+
+*Input: John +
+*Displays john and Johnson
+
+*Input: Betsy Tim John +
+*Displays persons who have ALL prefixes Betsy, Tim, and John in ANY part of their names
+
+*Input: 8269 +
+*Displays persons having 8269 as a prefix of his/her phone numbers
+
+*Input: friends +
+*Displays all persons tagged as friends
+
+== Thank You!
+Thanks for using our application!

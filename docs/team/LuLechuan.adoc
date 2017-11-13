@@ -26,7 +26,8 @@ include::../UserGuide.adoc[tag=photo]
 
 ==== Justification
 
-Users might like to have icon photos for their contacts. One reason is that it is easier for users to recognise the contacts. Another reason is that the contact book will have a better appearance with photos
+Users might like to have icon photos for their contacts. +
+One reason is that it is easier for users to recognise the contacts. Another reason is that the contact book will have a better appearance with photos.
 
 ==== Implementation
 
@@ -54,7 +55,7 @@ include::../UserGuide.adoc[tag=customField]
 
 ==== Justification
 
-Different students have their own custom fields such a nick name, courses etc. which is not exhaustive.
+Different students have their own custom fields such a nick name, courses etc. which is not exhaustive. +
 Therefore, this feature is designed for users to add as many custom fields for each contact as they want so that they can customise each contact.
 
 ==== Implementation
@@ -94,7 +95,8 @@ include::../UserGuide.adoc[tag=deleteByName]
 
 ==== Justification
 
-When there is a lot of contacts in the contact book, it will be easier for users to locate a particular contact by the name and delete it directly, as compared to finding the index of the contact in the long list.
+When there is a lot of contacts in the contact book, it will be easier for users to locate a particular contact by the name and delete it directly, as compared to finding the index of the contact in the long list. +
+In this case, when deleting a person, the user only need to type `delete John Doe` and the person named John Doe will be deleted.
 
 ==== Implementation
 
@@ -109,7 +111,7 @@ include::../DeveloperGuide.adoc[tag=deleteByName]
 
 === Enhancement Proposed: Add command `Background`
 
-The Background command will allow users to add a background image for the Contact Book.
+The Background command will allow users to add a background image for the Contact Book. +
 This command would allow users to customise their Contact Book to have an appearance that they desire.
 
 === Other contributions

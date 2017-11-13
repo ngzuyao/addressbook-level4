@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <persons>
+        <name>Alex Yeoh</name>
+        <phone>87438807</phone>
+        <email>alexyeoh@example.com</email>
+        <address>Blk 30 Geylang Street 29, #06-40</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>friends</tagged>
+        <optionalPhones>2333</optionalPhones>
+        <customised>Birthday 11/02/1998</customised>
+        <customised>Nickname Ah_lex</customised>
+    </persons>
+    <persons>
+        <name>Ameens</name>
+        <phone>67740637</phone>
+        <email>alamaan@ex.com</email>
+        <address>12 Clementi Rd, 129742</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Bernice Yu</name>
+        <phone>99272758</phone>
+        <email>berniceyu@example.com</email>
+        <address>Blk 30 Lorong 3 Serangoon Gardens, #07-18</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>colleagues</tagged>
+        <tagged>friends</tagged>
+    </persons>
+    <persons>
+        <name>Charlotte Oliveiro</name>
+        <phone>93210283</phone>
+        <email>charlotte@example.com</email>
+        <address>Blk 11 Ang Mo Kio Street 74, #11-04</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>neighbours</tagged>
+    </persons>
+    <persons>
+        <name>Chuan Garden</name>
+        <phone>65320356</phone>
+        <email>Chuan@this.that</email>
+        <address>42 Mosque St, Singapore 059520</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>David Li</name>
+        <phone>91031282</phone>
+        <email>lidavid@example.com</email>
+        <address>Blk 436 Serangoon Gardens Street 26, #16-43</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>family</tagged>
+    </persons>
+    <persons>
+        <name>Irfan Ibrahim</name>
+        <phone>92492021</phone>
+        <email>irfan@example.com</email>
+        <address>Blk 47 Tampines Street 20, #17-35</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>classmates</tagged>
+    </persons>
+    <persons>
+        <name>KFC</name>
+        <phone>66591792</phone>
+        <email>kendeji@gmail.com</email>
+        <address>3155 COMMONWEALTH AVENUE WEST #B1-32/33 THE CLEMENTI MALL, 129588</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>LiHo</name>
+        <phone>62656903</phone>
+        <email>liHo@ex.com</email>
+        <address>Stall #08, National University of Singapore, 21 Lower Kent Ridge Road, Level 2 Yusof Ishak House, 119077</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Lu Lechuan</name>
+        <phone>00000000</phone>
+        <email>ahchuang@nus.edu.sg</email>
+        <address>NUS</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>CS2103</tagged>
+    </persons>
+    <persons>
+        <name>McDonalds</name>
+        <phone>67771440</phone>
+        <email>mc@hotmail.com</email>
+        <address>10 Kent Ridge Crescent, Kent Ridge Campus,Faculty of Engineering Annexe, National University of Singapore, 117587</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Ng Zu Yao</name>
+        <phone>22222222</phone>
+        <email>zuyao@nus.edu.sg</email>
+        <address>NUS</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>CS2103</tagged>
+    </persons>
+    <persons>
+        <name>Old Chang Kee</name>
+        <phone>63032344</phone>
+        <email>ock@hotmail.com</email>
+        <address>10 Kent Ridge Cres, Singapore 119260</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Old Cheng Du</name>
+        <phone>62226858</phone>
+        <email>Chengdudelicous@hotmail.com</email>
+        <address>80 Pagoda St, 059239</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Pastamania</name>
+        <phone>67342329</phone>
+        <email>pasta@good.com</email>
+        <address>50 Jurong Gateway Rd, 04-26, Singapore 608549</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Pizza Hut</name>
+        <phone>66843153</phone>
+        <email>ph@we.com</email>
+        <address>2 College Avenue West #01-04 University Town Edusports National University of Si, 138607</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Roy Balakrishnannan</name>
+        <phone>92624417</phone>
+        <email>royb@example.com</email>
+        <address>Blk 45 Aljunied Street 85, #11-31</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>colleagues</tagged>
+    </persons>
+    <persons>
+        <name>Sarpinos</name>
+        <phone>66363636</phone>
+        <email>sarpino@gmail.com</email>
+        <address>31 Lower Kent Ridge Road, Yusof Ishak House, #01-04, 119078</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>restaurant</tagged>
+    </persons>
+    <persons>
+        <name>Xu Jun</name>
+        <phone>33333333</phone>
+        <email>xujun@nus.edu.sg</email>
+        <address>NUS</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>CS2103</tagged>
+    </persons>
+    <persons>
+        <name>Xu Yiqing</name>
+        <phone>11111111</phone>
+        <email>eeching@nus.edu.sg</email>
+        <address>NUS</address>
+        <photoPath>/images/default_photo.png</photoPath>
+        <tagged>CS2103</tagged>
+    </persons>
+    <tags>restaurant</tags>
+    <tags>colleagues</tags>
+    <tags>classmates</tags>
+    <tags>neighbours</tags>
+    <tags>family</tags>
+    <tags>friends</tags>
+    <tags>CS2103</tags>
+</addressbook>

@@ -74,6 +74,7 @@
          </rowConstraints>
 
       </GridPane>
+
   </SplitPane>
 
     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

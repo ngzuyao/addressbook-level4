@@ -2,9 +2,10 @@
 ###### \java\seedu\address\logic\commands\PhoneCommand.java
 ``` java
 /**
- * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
+ * Adds or removes the additional phone number of a person identified using it's last displayed
+ * index from the address book or his/her full name.
  */
-public class PhoneCommand extends Command {
+public class PhoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "updatePhone";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -23,16 +24,12 @@ public class PhoneCommand extends Command {
             + "PHONE "
             + "NAME (must be the full name saved in the Contact Book)\n"
             + "Example: " + COMMAND_WORD + " byName" + " add" + " 6583609887 " + "Alex Yeoh";
-
-    private static final String COMMAND_ADD = "add";
-    private static final String COMMAND_REMOVE = "remove";
-    private static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.\n";
-    private static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n";
-    private static final String PHONE_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number to be removed is not found in"
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.\n";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.\n";
+    public static final String PHONE_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number to be removed is not found in"
             + " the list.\n";
     public static final String DUPLICATE_PHONE_EXCEPTION_MESSAGE = "Phone number to be added already exists in"
             + " the list.\n";
-
     public static final String INVALID_COMMAND_MESSAGE = "Command is invalid, please check again.\n";
     public static final String PRIMARY_PHONE_MESSAGE = "The primary phone number is %s.\n";
     public static final String ADD_PHONE_SUCCESS_MESSAGE = "Phone number %s has been added.\n";
@@ -53,6 +50,9 @@ public class PhoneCommand extends Command {
 
     private final String name;
 
+    /**
+     * construct the PhoneCommand using index, with action and phone
+     */
 
     public PhoneCommand(Index targetIndex, String action,  Phone phone) {
         this.targetIndex = targetIndex;
@@ -61,6 +61,9 @@ public class PhoneCommand extends Command {
         this.name = UNSPECIFIED_NAME;
     }
 
+    /**
+     * Overloaded constructor to allow updatePhone by name
+     */
     public PhoneCommand(String name, String action, Phone phone) {
         this.name = name;
         this.action = action;
@@ -82,18 +85,19 @@ public class PhoneCommand extends Command {
         Set<Tag> tags = personToUpdatePhoneList.getTags();
         UniqueCustomFieldList customFields = personToUpdatePhoneList.getCustomFieldList();
 
+        UniquePhoneList updatedList = new UniquePhoneList(uniquePhoneList.toSet());
         if (action.equals(COMMAND_REMOVE)) {
-            uniquePhoneList.remove(phone);
+            updatedList.remove(phone);
         } else if (action.equals(COMMAND_ADD)) {
             if (!phone.equals(primaryPhone)) {
-                uniquePhoneList.add(phone);
+                updatedList.add(phone);
             } else {
                 throw new DuplicatePhoneException();
             }
         }
 
         Person personUpdated = new Person(name, primaryPhone, email, address,
-                photo, uniquePhoneList, tags, customFields.toSet());
+                photo, updatedList, tags, customFields.toSet());
 
         return personUpdated;
     }
@@ -125,7 +129,8 @@ public class PhoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult executeUndoableCommand() throws CommandException {
+
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         ReadOnlyPerson personToUpdatePhoneList = null;
 
@@ -133,6 +138,7 @@ public class PhoneCommand extends Command {
         if (name.equals(UNSPECIFIED_NAME)) {
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
+
                 logger.warning(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -141,6 +147,7 @@ public class PhoneCommand extends Command {
         } else {
 
             for (int i = 0; i < lastShownList.size(); i++) {
+
                 if (lastShownList.get(i).getName().toString().equals(name)) {
                     personToUpdatePhoneList = lastShownList.get(i);
                     break;
@@ -156,53 +163,72 @@ public class PhoneCommand extends Command {
             Person personUpdated = updatePersonPhoneList(personToUpdatePhoneList, action, phone);
             UniquePhoneList uniquePhoneList = personUpdated.getPhoneList();
             Phone primaryPhone = personUpdated.getPhone();
+
             try {
+
                 model.updatePerson(personToUpdatePhoneList, personUpdated);
+
             } catch (DuplicatePersonException dpe) {
+
                 logger.warning("Invalid person " + MESSAGE_DUPLICATE_PERSON);
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+
             } catch (PersonNotFoundException pnfe) {
+
                 logger.warning("Invalid person " + PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
                 throw new CommandException(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             }
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             logger.info("Execute update phone command");
             CommandResult commandResult;
+
             switch (action) {
 
             case COMMAND_ADD:
+
                 String successAdditionMessage = String.format(ADD_PHONE_SUCCESS_MESSAGE, phone.number);
                 String infoAddition = String.format(TOTAL_NUMBER_OF_PHONES, uniquePhoneList.getSize() + 1)
                         + String.format(PRIMARY_PHONE_MESSAGE, primaryPhone);
                 commandResult = new CommandResult(successAdditionMessage + infoAddition);
                 break;
+
             case COMMAND_REMOVE:
+
                 String successRemovalMessage = String.format(REMOVE_PHONE_SUCCESS_MESSAGE, phone.number);
                 String infoRemoval = String.format(TOTAL_NUMBER_OF_PHONES, uniquePhoneList.getSize() + 1)
                         + String.format(PRIMARY_PHONE_MESSAGE, primaryPhone);
                 commandResult = new CommandResult(successRemovalMessage + infoRemoval);
                 break;
+
             default :
+
                 commandResult = new CommandResult(INVALID_COMMAND_MESSAGE);
             }
             logger.info("Result: " + commandResult.feedbackToUser);
             return commandResult;
+
         } catch (PhoneNotFoundException e) {
+
             logger.warning(PHONE_NOT_FOUND_EXCEPTION_MESSAGE);
             return new CommandResult(PHONE_NOT_FOUND_EXCEPTION_MESSAGE);
+
         } catch (DuplicatePhoneException e) {
+
             logger.warning(DUPLICATE_PHONE_EXCEPTION_MESSAGE);
             return new CommandResult(DUPLICATE_PHONE_EXCEPTION_MESSAGE);
+
         }
     }
 }
 ```
 ###### \java\seedu\address\logic\parser\PhoneCommandParser.java
 ``` java
+
 public class PhoneCommandParser implements Parser<PhoneCommand> {
 
     private static final String BY_NAME_IDENTIFIER = "byName";
+
     /**
      * Parses the given {@code String} of arguments in the context of the PhoneCommand
      * and returns a PhoneCommand object for execution.
@@ -250,7 +276,6 @@ public class PhoneCommandParser implements Parser<PhoneCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PhoneCommand.MESSAGE_USAGE));
         }
     }
-
 }
 ```
 ###### \java\seedu\address\model\person\exceptions\DuplicatePhoneException.java
@@ -273,27 +298,35 @@ public class PhoneNotFoundException extends Exception {}
 ```
 ###### \java\seedu\address\model\person\phone\UniquePhoneList.java
 ``` java
-/**
- * A list of phones that enforces no nulls and uniqueness between its elements.
- *
- * Supports minimal set of list operations for the app's features.
- *
- * @see Phone#equals(Object)
- */
 public class UniquePhoneList implements Iterable<Phone> {
 
     private final ObservableList<Phone> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs phoneList with a number.
+     * Empty constructor
      */
 
     public UniquePhoneList() {}
+
+    /**
+     * Constructs phoneList with a phone.
+     */
 
     public UniquePhoneList(Phone phone) {
 
         requireNonNull(phone);
         internalList.add(phone);
+    }
+
+    /**
+     * Constructs phoneList with a set of phones.
+     */
+
+    public UniquePhoneList(Set<Phone> phones) {
+        requireAllNonNull(phones);
+        internalList.addAll(phones);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -340,26 +373,11 @@ public class UniquePhoneList implements Iterable<Phone> {
         return phoneFoundAndDeleted;
     }
 
-
+    /**
+     *return the number of phones in the list
+     */
     public int getSize() {
         return internalList.size();
-    }
-
-
-
-    public String getAllPhone() {
-
-        if (internalList.size() > 1) {
-            String rest = "The additional phone number(s) are/is \n";
-            int index = 1;
-            for (Phone phone: internalList) {
-                rest = rest + index + "/ " + phone.number + "\n";
-                index++;
-            }
-            return rest;
-        } else {
-            return "";
-        }
     }
 
 
@@ -409,7 +427,7 @@ public class UniquePhoneList implements Iterable<Phone> {
     }
 
     /**
-     * Set the total number of person in the current address Book
+     * Set the total number of person in the current contact book
      */
     private void setTotalPersons(int totalPersons) {
         this.totalPersons.setText(totalPersons + " person(s) in total");
@@ -420,9 +438,7 @@ public class UniquePhoneList implements Iterable<Phone> {
     private void setSaveWeather(String weather) {
         Platform.runLater(() -> this.weatherReport.setText(weather));
     }
-```
-###### \java\seedu\address\ui\StatusBarFooter.java
-``` java
+
     private String getWeather() throws JAXBException {
         try {
             WeatherRequest request = new WeatherRequest();
@@ -442,7 +458,7 @@ public class WeatherRequest {
     private static final int WEATHER_INDEX_FROM_CHANNEL = 0;
     private static final int TEMPERATURE_INDEX_FROM_CHANNEL = 2;
     private static final String LOCATION_INFORMATION = "Singapore GMT +0800";
-    private static final String DEGREE_CELSIUS = "â?, ";
+    private static final String DEGREE_CELSIUS = "�?, ";
 
 
 
@@ -489,7 +505,6 @@ public class WeatherRequest {
 ```
 ###### \resources\view\MainWindow.fxml
 ``` fxml
-
 <VBox fx:id="topContainer" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <stylesheets>
     <URL value="@DarkTheme.css" />
@@ -550,12 +565,7 @@ public class WeatherRequest {
          </rowConstraints>
 
       </GridPane>
-<!-- Commented out to remove browser panel
-    <StackPane fx:id="browserPlaceholder" prefWidth="340">
-      <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-      </padding>
-    </StackPane>-->
+
   </SplitPane>
 
     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

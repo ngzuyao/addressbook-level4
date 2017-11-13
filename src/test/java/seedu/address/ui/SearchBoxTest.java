@@ -13,7 +13,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-
+//@@author willxujun
 public class SearchBoxTest extends GuiUnitTest {
     private static final String COMMAND = "abc";
     private static final String BACKSPACE = "\u0008";

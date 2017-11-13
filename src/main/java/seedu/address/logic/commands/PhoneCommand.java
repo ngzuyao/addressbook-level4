@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
 
 //@@author eeching
 /**
- * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
+ * Adds or updates a custom field of a person identified using it's last displayed index from the contact book.
  */
 public class PhoneCommand extends Command {
 
@@ -49,7 +49,7 @@ public class PhoneCommand extends Command {
             + "NAME (must be the full name saved in the Contact Book)\n"
             + "Example: " + COMMAND_WORD + " byName" + " add" + " 6583609887 " + "Alex Yeoh";
     public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.\n";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.\n";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.\n";
     public static final String PHONE_NOT_FOUND_EXCEPTION_MESSAGE = "Phone number to be removed is not found in"
             + " the list.\n";
     public static final String DUPLICATE_PHONE_EXCEPTION_MESSAGE = "Phone number to be added already exists in"

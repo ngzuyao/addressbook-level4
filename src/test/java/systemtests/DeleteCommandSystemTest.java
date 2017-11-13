@@ -60,13 +60,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted*/
+        /* Case: filtered person list, delete index within bounds of contact book and person list -> deleted*/
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, delete index within bounds of contact book but out of bounds of person list
          * -> rejected
          */
 
@@ -115,7 +115,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s contact book.
      * @return the removed person
      */
     private ReadOnlyPerson removePerson(Model model, Index index) {

@@ -9,7 +9,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 //@@author LuLechuan
 /**
- * Deletes a person identified using the person's name from the address book.
+ * Deletes a person identified using the person's name from the contact book.
  */
 public class DeleteByNameCommand extends UndoableCommand {
 

@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
 
 //@@author LuLechuan
 /**
- * Adds or updates the photo of a person identified using it's last displayed index from the address book.
+ * Adds or updates the photo of a person identified using it's last displayed index from the contact book.
  */
 public class UploadPhotoCommand extends UndoableCommand {
 
@@ -39,7 +39,7 @@ public class UploadPhotoCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1" + " /img.png";
 
     public static final String MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS = "Updated Person: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact book.";
     public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;

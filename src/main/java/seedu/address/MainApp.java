@@ -81,9 +81,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s contact book and {@code userPrefs}. <br>
+     * The data from the sample contact book will be used instead if {@code storage}'s contact book is not found,
+     * or an empty contact book will be used instead if errors occur when reading {@code storage}'s contact book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
@@ -189,7 +189,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping contact book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

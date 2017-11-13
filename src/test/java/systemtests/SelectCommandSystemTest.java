@@ -55,7 +55,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the current selected card -> selected*/
         assertCommandSuccess(command, middleIndex);
 
-        /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, select index within bounds of contact book but out of bounds of person list
          * -> rejected
          */
 
@@ -63,7 +63,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* Case: filtered person list, select index within bounds of address book and person list -> selected*/
+        /* Case: filtered person list, select index within bounds of contact book and person list -> selected*/
         Index validIndex = Index.fromOneBased(1);
         assert validIndex.getZeroBased() < getModel().getFilteredPersonList().size();
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -88,7 +88,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected*/
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected*/
+        /* Case: select from empty contact book -> rejected*/
         executeCommand(ClearCommand.COMMAND_WORD);
         assert getModel().getAddressBook().getPersonList().size() == 0;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),

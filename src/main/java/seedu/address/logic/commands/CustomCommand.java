@@ -4,7 +4,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,10 +42,13 @@ public class CustomCommand extends UndoableCommand {
 
     public static final String MESSAGE_UPDATE_PERSON_CUSTOM_FIELD_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
 
     private final CustomField customField;
+
+    private final Logger logger = LogsCenter.getLogger(CustomCommand.class);
 
     public CustomCommand(Index targetIndex, CustomField customField) {
         this.targetIndex = targetIndex;
@@ -75,7 +80,9 @@ public class CustomCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
+        logger.info("Get the person of the specified index.");
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.warning(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -85,8 +92,10 @@ public class CustomCommand extends UndoableCommand {
         try {
             model.updatePerson(personToUpdateCustomField, personUpdated);
         } catch (DuplicatePersonException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_PERSON);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
+            logger.warning(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

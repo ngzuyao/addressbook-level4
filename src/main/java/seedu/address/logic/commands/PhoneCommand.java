@@ -29,7 +29,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
  */
-public class PhoneCommand extends UndoableCommand {
+public class PhoneCommand extends Command {
 
     public static final String COMMAND_WORD = "updatePhone";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -47,7 +47,7 @@ public class PhoneCommand extends UndoableCommand {
             + "ACTION "
             + "PHONE "
             + "NAME\n"
-            + "Example: " + COMMAND_WORD + " byName" + " add" + " 6583609887" + "Alex Yeoh";
+            + "Example: " + COMMAND_WORD + " byName" + " add" + " 6583609887" + " Alex Yeoh";
 
     private static final String COMMAND_ADD = "add";
     private static final String COMMAND_REMOVE = "remove";
@@ -142,7 +142,7 @@ public class PhoneCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult execute() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         ReadOnlyPerson personToUpdatePhoneList = null;
 

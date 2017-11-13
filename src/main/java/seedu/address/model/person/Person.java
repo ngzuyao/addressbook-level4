@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Person in the contact book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Person implements ReadOnlyPerson, Comparable<Person> {

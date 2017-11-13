@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.person.NamePhoneTagContainsKeywordsPredicate;
 //@@author willxujun
 /**
- * Finds and lists all persons in address book whose name, phone or tag contains any of the argument keywords.
+ * Finds and lists all persons in contact book whose name, phone or tag contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {

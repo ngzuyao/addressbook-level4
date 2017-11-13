@@ -131,7 +131,7 @@ public class EditCommandTest {
     public void execute_duplicatePersonFilteredList_failure() {
         showFirstPersonOnly(model);
 
-        // edit person in filtered list into a duplicate in address book
+        // edit person in filtered list into a duplicate in contact book
         ReadOnlyPerson personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = prepareCommand(new EditPersonDescriptorBuilder(personInList).build(),
                 INDEX_FIRST_PERSON
@@ -151,13 +151,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of contact book
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {
         showFirstPersonOnly(model);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of contact book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         EditCommand editCommand = prepareCommand(new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build(),

@@ -6,7 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author LuLechuan
 /**
- * Represents a Person's photo in the address book.
+ * Represents a Person's photo in the contact book.
  */
 public class Photo {
 

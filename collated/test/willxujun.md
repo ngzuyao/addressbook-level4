@@ -1,5 +1,5 @@
 # willxujun
-###### /java/seedu/address/logic/commands/SearchCommandTest.java
+###### \java\seedu\address\logic\commands\SearchCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -119,7 +119,7 @@ public class SearchCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddCommandParserTest.java
+###### \java\seedu\address\logic\parser\AddCommandParserTest.java
 ``` java
         //empty (unknown) email value
         expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
@@ -133,7 +133,7 @@ public class SearchCommandTest {
         assertParseSuccess(parser, AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + UNKNOWN_ADDRESS_DESC, new AddCommand(expectedPerson));
 ```
-###### /java/seedu/address/logic/parser/SearchParserTest.java
+###### \java\seedu\address\logic\parser\SearchParserTest.java
 ``` java
 public class SearchParserTest {
 

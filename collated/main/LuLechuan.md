@@ -1,5 +1,5 @@
 # LuLechuan
-###### /java/seedu/address/commons/events/ui/ShowWeatherRequestEvent.java
+###### \java\seedu\address\commons\events\ui\ShowWeatherRequestEvent.java
 ``` java
 /**
  * An event requesting to view the yahoo weather page.
@@ -13,7 +13,7 @@ public class ShowWeatherRequestEvent extends BaseEvent {
 
 }
 ```
-###### /java/seedu/address/logic/commands/CustomCommand.java
+###### \java\seedu\address\logic\commands\CustomCommand.java
 ``` java
 /**
  * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
@@ -32,10 +32,13 @@ public class CustomCommand extends UndoableCommand {
 
     public static final String MESSAGE_UPDATE_PERSON_CUSTOM_FIELD_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
 
     private final CustomField customField;
+
+    private final Logger logger = LogsCenter.getLogger(CustomCommand.class);
 
     public CustomCommand(Index targetIndex, CustomField customField) {
         this.targetIndex = targetIndex;
@@ -67,7 +70,9 @@ public class CustomCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
+        logger.info("Get the person of the specified index.");
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            logger.warning(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
@@ -77,8 +82,10 @@ public class CustomCommand extends UndoableCommand {
         try {
             model.updatePerson(personToUpdateCustomField, personUpdated);
         } catch (DuplicatePersonException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_PERSON);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
+            logger.warning(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -95,7 +102,7 @@ public class CustomCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteByNameCommand.java
+###### \java\seedu\address\logic\commands\DeleteByNameCommand.java
 ``` java
 /**
  * Deletes a person identified using the person's name from the address book.
@@ -153,7 +160,7 @@ public class DeleteByNameCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/UploadPhotoCommand.java
+###### \java\seedu\address\logic\commands\UploadPhotoCommand.java
 ``` java
 /**
  * Adds or updates the photo of a person identified using it's last displayed index from the address book.
@@ -167,14 +174,17 @@ public class UploadPhotoCommand extends UndoableCommand {
             + "Parameters: "
             + "INDEX (must be a positive integer)\n"
             + "photoPath"
-            + "Example: " + COMMAND_WORD + " 1" + "/img.png";
+            + "Example: " + COMMAND_WORD + " 1" + " /img.png";
 
     public static final String MESSAGE_UPDATE_PERSON_PHOTO_SUCCESS = "Updated Person: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String PERSON_NOT_FOUND_EXCEPTION_MESSAGE = "The target person cannot be missing.";
 
     private final Index targetIndex;
 
     private final Photo photo;
+
+    private final Logger logger = LogsCenter.getLogger(UploadPhotoCommand.class);
 
     public UploadPhotoCommand(Index targetIndex, Photo photo) {
         this.targetIndex = targetIndex;
@@ -202,6 +212,7 @@ public class UploadPhotoCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
+        logger.info("Get the person of the specified index.");
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
@@ -210,11 +221,18 @@ public class UploadPhotoCommand extends UndoableCommand {
 
         Person personUpdated = updatePersonPhoto(personToUpdatePhoto, photo);
 
+        if (Photo.isUnknownPath(photo.getPathName())) {
+            logger.warning(Messages.MESSAGE_UNKNOWN_PATH);
+            throw new CommandException(Messages.MESSAGE_UNKNOWN_PATH);
+        }
+
         try {
             model.updatePerson(personToUpdatePhoto, personUpdated);
         } catch (DuplicatePersonException dpe) {
+            logger.warning(MESSAGE_DUPLICATE_PERSON);
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (PersonNotFoundException pnfe) {
+            logger.warning(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -228,27 +246,6 @@ public class UploadPhotoCommand extends UndoableCommand {
                 || (other instanceof UploadPhotoCommand // instanceof handles nulls
                 && this.targetIndex.equals(((UploadPhotoCommand) other).targetIndex)
                 && this.photo.equals(((UploadPhotoCommand) other).photo)); // state check
-    }
-}
-```
-###### \java\seedu\address\logic\commands\WeatherCommand.java
-``` java
-/**
- * Open the Yahoo Weather Window.
- */
-public class WeatherCommand extends Command {
-
-    public static final String COMMAND_WORD = "weather";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Opens Yahoo Weather Window.\n"
-            + "Example: " + COMMAND_WORD;
-
-    public static final String SHOWING_WEATHER_MESSAGE = "Opened Yahoo Weather Window.";
-
-    @Override
-    public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowWeatherRequestEvent());
-        return new CommandResult(SHOWING_WEATHER_MESSAGE);
     }
 }
 ```
@@ -287,7 +284,7 @@ public class CustomCommandParser implements Parser<CustomCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/DeleteByNameCommandParser.java
+###### \java\seedu\address\logic\parser\DeleteByNameCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new DeleteByNameCommand object
@@ -311,7 +308,7 @@ public class DeleteByNameCommandParser implements Parser<DeleteByNameCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/UploadPhotoCommandParser.java
+###### \java\seedu\address\logic\parser\UploadPhotoCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new UploadPhotoCommand object
@@ -351,7 +348,7 @@ public class UploadPhotoCommandParser implements Parser<UploadPhotoCommand> {
 
 }
 ```
-###### /java/seedu/address/model/customField/CustomField.java
+###### \java\seedu\address\model\customField\CustomField.java
 ``` java
 /**
  * Represents a CustomField in the address book.
@@ -360,6 +357,12 @@ public class UploadPhotoCommandParser implements Parser<UploadPhotoCommand> {
 public class CustomField {
 
     public static final String MESSAGE_CUSTOM_FIELD_CONSTRAINTS = "CustomFields names should be alphanumeric";
+
+    /*
+     * The first character of the custom field name must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String CUSTOM_FIELD_VALIDATION_REGEX = "[^\\s].*";
 
     public final String customFieldName;
     private String customFieldValue;
@@ -395,6 +398,13 @@ public class CustomField {
         this.customFieldValue = newCustomFieldValue;
     }
 
+    /**
+     * Returns true if a given string is a valid person custom field.
+     */
+    public static boolean isValidCustomField(String test) {
+        return test.matches(CUSTOM_FIELD_VALIDATION_REGEX);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -412,12 +422,12 @@ public class CustomField {
      * Format state as text for viewing.
      */
     public String toString() {
-        return customFieldValue;
+        return customFieldName + ": " + customFieldValue;
     }
 
 }
 ```
-###### /java/seedu/address/model/customField/UniqueCustomFieldList.java
+###### \java\seedu\address\model\customField\UniqueCustomFieldList.java
 ``` java
 /**
  * A list of customField that enforces no nulls and uniqueness between its elements.
@@ -444,6 +454,13 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
         internalList.addAll(customFields);
 
         assert CollectionUtil.elementsAreUnique(internalList);
+    }
+
+    /**
+     *  Gets the size of the Custom Field List
+     */
+    public int getSize() {
+        return internalList.size();
     }
 
     /**
@@ -564,7 +581,7 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
 
 }
 ```
-###### /java/seedu/address/model/person/Person.java
+###### \java\seedu\address\model\person\Person.java
 ``` java
     public void setPhoto(Photo photo) {
         this.photo.set(requireNonNull(photo));
@@ -580,7 +597,7 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
         return photo.get();
     }
 ```
-###### /java/seedu/address/model/person/Person.java
+###### \java\seedu\address\model\person\Person.java
 ``` java
     /**
      * Returns an immutable custom field set, which throws {@code UnsupportedOperationException}
@@ -612,12 +629,14 @@ public class UniqueCustomFieldList implements Iterable<CustomField> {
         customFields.set(new UniqueCustomFieldList(replacement));
     }
 ```
-###### /java/seedu/address/model/person/Photo.java
+###### \java\seedu\address\model\person\Photo.java
 ``` java
 /**
  * Represents a Person's photo in the address book.
  */
 public class Photo {
+
+    public static final String MESSAGE_PHOTO_NOT_FOUND = "The given path name does not exist";
 
     public final String pathName;
 
@@ -633,13 +652,20 @@ public class Photo {
      * Constructs with a given pathName.
      */
     public Photo(String pathName) throws IllegalValueException {
-        //requireNonNull(pathName);
-
         this.pathName = pathName;
     }
 
     public String getPathName() {
         return pathName;
+    }
+
+    /**
+     *
+     * @return true if a given pathname has unknown value
+     */
+    public static boolean isUnknownPath(String test) {
+        File file = new File(test);
+        return !file.exists();
     }
 
     @Override
@@ -661,7 +687,7 @@ public class Photo {
 
 }
 ```
-###### /java/seedu/address/storage/XmlAdaptedCustomField.java
+###### \java\seedu\address\storage\XmlAdaptedCustomField.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Custom Field.
@@ -705,7 +731,7 @@ public class XmlAdaptedCustomField {
 
 }
 ```
-###### /java/seedu/address/storage/XmlAdaptedPhone.java
+###### \java\seedu\address\storage\XmlAdaptedPhone.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Phone.
@@ -741,7 +767,7 @@ public class XmlAdaptedPhone {
 
 }
 ```
-###### /java/seedu/address/ui/MainWindow.java
+###### \java\seedu\address\ui\MainWindow.java
 ``` java
     /**
      *  Sets a background image for a stack pane
@@ -776,7 +802,7 @@ public class XmlAdaptedPhone {
         return photo;
     }
 ```
-###### /java/seedu/address/ui/PersonCard.java
+###### \java\seedu\address\ui\PersonCard.java
 ``` java
     /**
      *  Initialises icon photo
@@ -810,7 +836,7 @@ public class XmlAdaptedPhone {
         return photo;
     }
 ```
-###### /java/seedu/address/ui/PersonInformationPanel.java
+###### \java\seedu\address\ui\PersonInformationPanel.java
 ``` java
     public void initCustomField(ReadOnlyPerson person) {
         customFieldNameList.getChildren().clear();
@@ -824,4 +850,56 @@ public class XmlAdaptedPhone {
             customFieldValueList.getChildren().add(customFieldValue);
         });
     }
+```
+###### \resources\view\DarkTheme.css
+``` css
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+
+.text-area {
+    text-area-background: transparent ;
+}
+
+.text-area .content {
+    -fx-background-color: text-area-background ;
+}
+```
+###### \resources\view\PersonInformationPanel.fxml
+``` fxml
+                   <ScrollPane style="-fx-background-color: transparent;" prefHeight="450" prefWidth="450">
+                       <VBox>
+                         <children>
+                            <Label fx:id="id" styleClass="label-header" />
+                            <Label fx:id="name" styleClass="name" />
+                                 <HBox>
+                                   <children>
+                                       <VBox prefHeight="200.0" prefWidth="100.0">
+                                           <children>
+                                               <VBox fx:id="customFieldNameList" prefHeight="0.0" prefWidth="400.0" styleClass="label-bright" />
+                                           </children>
+                                       </VBox>
+                                       <VBox prefHeight="0.0" prefWidth="400.0">
+                                           <children>
+                                               <VBox fx:id="customFieldValueList" prefHeight="0.0" prefWidth="400.0" styleClass="label-bright" />
+                                           </children>
+                                       </VBox>
+                                   </children>
+                                </HBox>
+                         </children>
+                      </VBox>
+                   </ScrollPane>
+```
+###### \resources\view\PersonListCard.fxml
+``` fxml
+  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="60.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" >
+    <children>
+      <ImageView fx:id="photoContainer" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+  </HBox>
+</HBox>
 ```

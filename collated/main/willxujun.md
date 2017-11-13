@@ -114,7 +114,7 @@ public class SearchParser implements Parser<Command> {
 
 }
 ```
-###### /java/seedu/address/model/person/NamePhoneTagContainsKeywordsPredicate.java
+###### \java\seedu\address\model\person\NamePhoneTagContainsKeywordsPredicate.java
 ``` java
 /**
  * Tests that a {@code ReadOnlyPerson}'s {@code Name} or {@code Phone} or {@code Tags}
@@ -140,7 +140,8 @@ public class NamePhoneTagContainsKeywordsPredicate implements Predicate<ReadOnly
                     .anyMatch(keyword -> person.getPhones().stream()
                             .anyMatch(phone -> StringUtil.containsWordIgnoreCase(phone.value, keyword)))
                 || keywords.stream()
-                    .anyMatch(keyword -> person.getTags().stream().anyMatch(tag -> tag.tagName.equals(keyword)));
+                    .anyMatch(keyword -> person.getTags().stream()
+                            .anyMatch(tag -> tag.tagName.equalsIgnoreCase(keyword)));
     }
 
     @Override
@@ -152,7 +153,7 @@ public class NamePhoneTagContainsKeywordsPredicate implements Predicate<ReadOnly
 
 }
 ```
-###### /java/seedu/address/model/person/Person.java
+###### \java\seedu\address\model\person\Person.java
 ``` java
     /**
      * Returns an immutable phone set, which throws {@code UnsupportedOperationException}
@@ -163,13 +164,13 @@ public class NamePhoneTagContainsKeywordsPredicate implements Predicate<ReadOnly
         return Collections.unmodifiableSet(uniquePhoneList.get().toSet());
     }
 ```
-###### /java/seedu/address/ui/CommandBox.java
+###### \java\seedu\address\ui\CommandBox.java
 ``` java
     public TextField getCommandTextField() {
         return commandTextField;
     }
 ```
-###### /java/seedu/address/ui/MainWindow.java
+###### \java\seedu\address\ui\MainWindow.java
 ``` java
         SearchBox searchBox = new SearchBox(logic);
         searchBoxPlaceholder.getChildren().add(searchBox.getRoot());
@@ -211,7 +212,7 @@ public class NamePhoneTagContainsKeywordsPredicate implements Predicate<ReadOnly
                 }
         );
 ```
-###### /java/seedu/address/ui/SearchBox.java
+###### \java\seedu\address\ui\SearchBox.java
 ``` java
 /**
  * The UI component that is responsible for receiving user search command.
@@ -270,7 +271,7 @@ public class SearchBox extends UiPart<Region> {
 
 }
 ```
-###### /resources/view/SearchBox.fxml
+###### \resources\view\SearchBox.fxml
 ``` fxml
 <StackPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <TextField fx:id="searchTextField" onKeyTyped="#handleKeyTyped" promptText="Search..." />

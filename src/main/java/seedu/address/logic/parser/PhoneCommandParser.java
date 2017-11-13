@@ -15,9 +15,11 @@ import seedu.address.model.person.phone.Phone;
  * Parses input arguments and creates a new object
  */
 //@@author eeching
+
 public class PhoneCommandParser implements Parser<PhoneCommand> {
 
     private static final String BY_NAME_IDENTIFIER = "byName";
+
     /**
      * Parses the given {@code String} of arguments in the context of the PhoneCommand
      * and returns a PhoneCommand object for execution.
@@ -65,5 +67,5 @@ public class PhoneCommandParser implements Parser<PhoneCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, PhoneCommand.MESSAGE_USAGE));
         }
     }
-
 }
+//@@author

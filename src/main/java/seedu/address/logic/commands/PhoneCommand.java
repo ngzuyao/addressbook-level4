@@ -27,9 +27,10 @@ import seedu.address.model.tag.Tag;
 
 //@@author eeching
 /**
- * Adds or updates a custom field of a person identified using it's last displayed index from the address book.
+ * Adds or removes the additional phone number of a person identified using it's last displayed
+ * index from the address book or his/her full name.
  */
-public class PhoneCommand extends Command {
+public class PhoneCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "updatePhone";
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -74,6 +75,9 @@ public class PhoneCommand extends Command {
 
     private final String name;
 
+    /**
+     * construct the PhoneCommand using index, with action and phone
+     */
 
     public PhoneCommand(Index targetIndex, String action,  Phone phone) {
         this.targetIndex = targetIndex;
@@ -82,6 +86,9 @@ public class PhoneCommand extends Command {
         this.name = UNSPECIFIED_NAME;
     }
 
+    /**
+     * Overloaded constructor to allow updatePhone by name
+     */
     public PhoneCommand(String name, String action, Phone phone) {
         this.name = name;
         this.action = action;
@@ -147,7 +154,8 @@ public class PhoneCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult executeUndoableCommand() throws CommandException {
+
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         ReadOnlyPerson personToUpdatePhoneList = null;
 
@@ -155,6 +163,7 @@ public class PhoneCommand extends Command {
         if (name.equals(UNSPECIFIED_NAME)) {
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
+
                 logger.warning(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
@@ -163,6 +172,7 @@ public class PhoneCommand extends Command {
         } else {
 
             for (int i = 0; i < lastShownList.size(); i++) {
+
                 if (lastShownList.get(i).getName().toString().equals(name)) {
                     personToUpdatePhoneList = lastShownList.get(i);
                     break;
@@ -178,44 +188,62 @@ public class PhoneCommand extends Command {
             Person personUpdated = updatePersonPhoneList(personToUpdatePhoneList, action, phone);
             UniquePhoneList uniquePhoneList = personUpdated.getPhoneList();
             Phone primaryPhone = personUpdated.getPhone();
+
             try {
+
                 model.updatePerson(personToUpdatePhoneList, personUpdated);
+
             } catch (DuplicatePersonException dpe) {
+
                 logger.warning("Invalid person " + MESSAGE_DUPLICATE_PERSON);
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+
             } catch (PersonNotFoundException pnfe) {
+
                 logger.warning("Invalid person " + PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
                 throw new CommandException(PERSON_NOT_FOUND_EXCEPTION_MESSAGE);
             }
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             logger.info("Execute update phone command");
             CommandResult commandResult;
+
             switch (action) {
 
             case COMMAND_ADD:
+
                 String successAdditionMessage = String.format(ADD_PHONE_SUCCESS_MESSAGE, phone.number);
                 String infoAddition = String.format(TOTAL_NUMBER_OF_PHONES, uniquePhoneList.getSize() + 1)
                         + String.format(PRIMARY_PHONE_MESSAGE, primaryPhone);
                 commandResult = new CommandResult(successAdditionMessage + infoAddition);
                 break;
+
             case COMMAND_REMOVE:
+
                 String successRemovalMessage = String.format(REMOVE_PHONE_SUCCESS_MESSAGE, phone.number);
                 String infoRemoval = String.format(TOTAL_NUMBER_OF_PHONES, uniquePhoneList.getSize() + 1)
                         + String.format(PRIMARY_PHONE_MESSAGE, primaryPhone);
                 commandResult = new CommandResult(successRemovalMessage + infoRemoval);
                 break;
+
             default :
+
                 commandResult = new CommandResult(INVALID_COMMAND_MESSAGE);
             }
             logger.info("Result: " + commandResult.feedbackToUser);
             return commandResult;
+
         } catch (PhoneNotFoundException e) {
+
             logger.warning(PHONE_NOT_FOUND_EXCEPTION_MESSAGE);
             return new CommandResult(PHONE_NOT_FOUND_EXCEPTION_MESSAGE);
+
         } catch (DuplicatePhoneException e) {
+
             logger.warning(DUPLICATE_PHONE_EXCEPTION_MESSAGE);
             return new CommandResult(DUPLICATE_PHONE_EXCEPTION_MESSAGE);
+
         }
     }
 }
+//@@author

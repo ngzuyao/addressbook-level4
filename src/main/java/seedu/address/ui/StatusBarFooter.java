@@ -56,7 +56,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     /**
-     * Set the total number of person in the current address Book
+     * Set the total number of person in the current contact book
      */
     private void setTotalPersons(int totalPersons) {
         this.totalPersons.setText(totalPersons + " person(s) in total");

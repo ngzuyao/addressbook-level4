@@ -43,16 +43,7 @@ public class SearchBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyTyped(KeyEvent keyEvent) {
-        String s = keyEvent.getCharacter();
-        if (isDeleteOrBackspace(s)) {
-            if (!searchBuffer.isEmpty()) {
-                searchBuffer = searchBuffer.substring(0, searchBuffer.length() - 1);
-            } else {
-                return;
-            }
-        } else {
-            searchBuffer = searchBuffer + s;
-        }
+        searchBuffer = searchTextField.getText();
         try {
             CommandResult commandResult = logic.executeSearch(searchBuffer);
             logger.info("Result: " + commandResult.feedbackToUser);
@@ -62,10 +53,6 @@ public class SearchBox extends UiPart<Region> {
             logger.info("Invalid search: " + searchTextField.getText());
             raise(new NewResultAvailableEvent((e.getMessage())));
         }
-    }
-
-    private boolean isDeleteOrBackspace (String toTest) {
-        return toTest.equals("\u0008") || toTest.equals("\u007F");
     }
 
 }
